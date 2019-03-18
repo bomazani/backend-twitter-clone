@@ -13,7 +13,6 @@ class TwitterUser(models.Model):
     def __str__(self):
         return self.user.username
 
-
 class Tweet(models.Model):
     username = models.ForeignKey(
         TwitterUser.username,
