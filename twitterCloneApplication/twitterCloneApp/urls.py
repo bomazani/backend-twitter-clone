@@ -14,8 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from twitterCloneApp import views
+from twitterCloneApp.views import signup_view, signin_view, logout_view
+from django.conf import settings
+from django.urls import include, path
+from twitterCloneApp.models import *
+from twitterCloneApp.views import login_view, signup_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('signup/', views.signup_view, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

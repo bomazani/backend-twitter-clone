@@ -54,3 +54,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
+
+def home(request):
+    # items = Recipe.objects.all()
+    return render(request, 'home.html', {'data':items})
