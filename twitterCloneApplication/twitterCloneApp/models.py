@@ -15,12 +15,22 @@ class TwitterUser(models.Model):
 
 class Tweet(models.Model):
     username = models.ForeignKey(
-        TwitterUser.username,
+        TwitterUser,
         on_delete=models.CASCADE
     )
     body = models.TextField(null=True, blank=True)
     date_time = timezone.now()
     # recipient = 
 
-def Notification(models.Model):
+class Notification(models.Model):
+    # username = models.ForeignKey(
+    #     TwitterUser,
+    #     on_delete=models.CASCADE
+    # )
+    # tweet_id = models.ForeignKey(
+    #     Tweet,
+    #     on_delete=models.CASCADE
+    # )
+       # link for time
     pass
+ 

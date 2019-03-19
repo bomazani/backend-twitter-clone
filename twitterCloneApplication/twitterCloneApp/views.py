@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import reverse
 
-from recipebox.models import TwitterUser, Tweet, Notification
-from recipebox.forms import TweetForm, SignupForm, LoginForm
+from twitterCloneApp.models import TwitterUser, Tweet, Notification
+from twitterCloneApp.forms import TweetForm, SignupForm, LoginForm
 
 def signup_view(request):
     html = 'generic_form.html'
@@ -55,6 +55,22 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
 
-def home(request):
-    # items = Recipe.objects.all()
+@login_required()
+def home_view(request):
+    items = TwitterUser.objects.all()
     return render(request, 'home.html', {'data':items})
+
+@login_required()
+def profile_view(request, user_id):
+    items = get_object_or_404(TwitterUser, id=user_id)
+    return render(request, 'profile.html', {'data':items})
+
+@login_required()
+def tweet_view(request, tweet_id):
+    items = get_object_or_404(TwitterUser, id=tweet_id)
+    return render(request, 'tweet.html', {'data':items})
+
+@login_required
+def notification_view(request, user_id):
+    items = get_object_or_404(Notification, id=user_id)
+    return render(request, 'notification.html', {'data':items})

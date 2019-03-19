@@ -1,4 +1,4 @@
-"""twitterClone URL Configuration
+"""twitterCloneApp URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -18,14 +18,16 @@ from twitterCloneApp import views
 from django.conf import settings
 from django.urls import include, path
 from twitterCloneApp.models import *
-from twitterCloneApp.views import login_view, signup_view, logout_view
+from twitterCloneApp.views import home_view, login_view, signup_view, logout_view, tweet_view, notification_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.home_view, name='home'),
     path('signup/', views.signup_view, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('tweet/', views.tweet_view, name='tweet'),
+    path('notification/', views.notification_view, name='notification'),
 ]
 
 if settings.DEBUG:

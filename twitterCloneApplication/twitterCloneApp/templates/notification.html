@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>notification</title>
+</head>
+<body>
+        
+    <nav>nav bar goes here.</nav>
+    <div>{% include "navbar.html" %}</div>
+    <div>{% include "sidebar.html" %}</div>
+    Here are your notificationa, {{ user }}!
+    <ul>
+        Below should be a list of the logged in TwitterUser's notifications.
+        {% for spam in data %}
+        <li>
+            <a href='/notification/{{spam.id}}'>{{ spam.title }},</a>
+        </li>
+        {% endfor %}
+    </ul>
+    </body>
+</html>

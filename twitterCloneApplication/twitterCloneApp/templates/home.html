@@ -5,14 +5,17 @@
     <title>TwitterClone</title>
 </head>
 <body>
-    What's happening, {{ user }}?
+        
+    <div>{% include "navbar.html" %}</div>
+    <div>{% include "sidebar.html" %}</div>
+    <div>What's happening, {{ user }}?</div>
     <ul>
-        <!-- Below should be a list of the logged in TwitterUser's own tweets -->
-        <!-- {% for foo in data %} -->
+        Below should be a list of the logged in TwitterUser's own tweets and people they follow.
+        {% for foo in data %}
         <li>
-            <!-- <a href='/recipe/{{foo.id}}'>{{ foo.title }},</a> -->
+            <a href='/recipe/{{foo.id}}'>{{ foo.title }},</a> -->
         </li>
-        <!-- {% endfor %} -->
+        {% endfor %} -->
     </ul>
     <div>
             {% if user.is_authenticated%}
