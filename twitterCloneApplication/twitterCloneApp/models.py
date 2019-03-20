@@ -19,18 +19,24 @@ class Tweet(models.Model):
         on_delete=models.CASCADE
     )
     body = models.TextField(null=True, blank=True)
-    date_time = timezone.now()
-    # recipient = 
+    tweetTime = timezone.now()
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        ordering = ('username',)
 
 class Notification(models.Model):
-    # username = models.ForeignKey(
-    #     TwitterUser,
-    #     on_delete=models.CASCADE
-    # )
-    # tweet_id = models.ForeignKey(
-    #     Tweet,
-    #     on_delete=models.CASCADE
-    # )
-       # link for time
-    pass
+    ''' title and page below were added as dummy fields '''
+    title = models.CharField(max_length=124, default='Filler Text')
+    description = models.CharField(max_length=124, null=True, blank=True)
+    tweets = models.ManyToManyField(Tweet)
+    twitter_users = models.ManyToManyField(TwitterUser)
+
+    def __str__(self):
+        return self.tweets
+
+    class Meta:
+        ordering = ('title', )
  

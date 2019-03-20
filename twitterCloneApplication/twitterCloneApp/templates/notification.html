@@ -6,17 +6,11 @@
 </head>
 <body>
         
-    <nav>nav bar goes here.</nav>
     <div>{% include "navbar.html" %}</div>
     <div>{% include "sidebar.html" %}</div>
-    Here are your notificationa, {{ user }}!
+    Here are your notifications, {{ user }}!
     <ul>
-        Below should be a list of the logged in TwitterUser's notifications.
-        {% for spam in data %}
-        <li>
-            <a href='/notification/{{spam.id}}'>{{ spam.title }},</a>
-        </li>
-        {% endfor %}
+        This should be a list of the logged-in TwitterUser's notifications.
     </ul>
-    </body>
+</body>
 </html>

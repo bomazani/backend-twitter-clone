@@ -1,6 +1,19 @@
-<form action="/authoradd/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TwitterClone</title>
+</head>
+<body>
+        
+    <div>{% include "navbar.html" %}</div>
+    <div>{% include "sidebar.html" %}</div>
+    <div>What's happening, {{ user }}?</div>
+    <ul>
+        Below should be a list of the logged in TwitterUser's own tweets, only.
+        <li>
+            <a href='/tweet/{{foo.id}}'>{{ foo.body }}</a>
+        </li>
+    </ul>
+    </body>
+</html>

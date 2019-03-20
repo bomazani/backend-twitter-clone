@@ -61,16 +61,28 @@ def home_view(request):
     return render(request, 'home.html', {'data':items})
 
 @login_required()
-def profile_view(request, user_id):
-    items = get_object_or_404(TwitterUser, id=user_id)
+def profile_view(request):
+# def profile_view(request, user_id):
+    items = get_object_or_404(TwitterUser)
+    # items = get_object_or_404(TwitterUser, id=user_id)
     return render(request, 'profile.html', {'data':items})
 
 @login_required()
-def tweet_view(request, tweet_id):
-    items = get_object_or_404(TwitterUser, id=tweet_id)
+def tweet_view(request):
+    items = get_object_or_404(Tweet)
+# def tweet_view(request, tweet_id):
+#     items = get_object_or_404(TwitterUser, id=tweet_id)
     return render(request, 'tweet.html', {'data':items})
 
 @login_required
-def notification_view(request, user_id):
-    items = get_object_or_404(Notification, id=user_id)
-    return render(request, 'notification.html', {'data':items})
+def notification_view(request):
+    items = get_object_or_404(Tweet)
+    # return render(request, 'notification.html', {'data':items})
+    # return render(request, 'notification.html', {'data': items})
+    # return HttpResponseRedirect(request.GET.get('next', '/'))
+    html = 'generic_form.html'
+    form = None
+    return render(request, html, {'form': form})
+
+
+
