@@ -12,6 +12,3 @@ class LoginForm(forms.Form):
 
 class TweetForm(forms.Form):
     body = forms.CharField(label='Say what ya gotta say...', widget=forms.Textarea)
-    # author = TwitterUser.objects.username
-    # author = forms.ModelChoiceField(label='Tweet Author', queryset=TwitterUser.objects.all())
-    # time_tweeted = forms.???????

@@ -16,7 +16,7 @@
                 {% for tweet in tweets %}
                 <li>
                     {{tweet.body}}
-                    <a href="/profile/{{ myuser.id }}"> by {{ myuser }}</a>
+                    <a href="/profile/{{ myuser.id }}"> by {{ myuser }} at {{ myuser }}</a>
                 </li>
                 {% endfor %}
             </li>
@@ -35,6 +35,11 @@
             <li>
                 myuser = {{ myuser }}
             </li>
+            <li>tweet.tweetTime = {{ tweet.tweetTime }}</li>
+            <li>tweet.created_on = {{ tweet.created_on }}</li>
+            <li>created_on = {{ created_on }}</li>
+
+
         </ul>
     </body>
 </html>

@@ -14,16 +14,12 @@ class TwitterUser(models.Model):
         return self.user.username
 
 class Tweet(models.Model):
-    # username = models.ForeignKey(
-    #     TwitterUser,
-    #     on_delete=models.CASCADE
-    # )
     author = models.ForeignKey(
         TwitterUser,
         on_delete=models.CASCADE
     )
     body = models.CharField(max_length=140, default='No message.')
-    tweetTime = models.DateTimeField(default=timezone.now)
+    tweetTime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.author.user.username

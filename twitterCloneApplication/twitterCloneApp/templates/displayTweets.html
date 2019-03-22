@@ -13,6 +13,7 @@
                 <li>
                     {{ tweet.body }}
                     <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>
+                    {{ created_on }}
                 </li>
                 <li>tweet.author = {{ tweet.author }}</li>
                 <li>tweet = {{ tweet }}</li>

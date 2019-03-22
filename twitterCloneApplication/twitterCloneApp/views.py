@@ -47,8 +47,6 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', '/'))
-            # else:
-            #     return render(request,'signup.html', {'form': form})
     else:
         form = LoginForm()
     return render(request, html, {'form': form})
@@ -73,7 +71,6 @@ def profile_view(request, twitteruser_id):
     myuser = TwitterUser.objects.get(id=twitteruser_id)
     mytweets = Tweet.objects.filter(author=myuser)
     context = {
-        # 'data':items,
         'current_user':myuser,
         'tweets':mytweets,
         'myuser':myuser
@@ -93,13 +90,14 @@ def tweet_view(request, twitteruser_id):
 
 @login_required()
 def add_tweet(request):
-# def add_tweet(request):
     html = 'add_tweet.html'
     form = None
     items = TwitterUser.objects.all()
+    created_on = request.user.tweetTime
     context = {
         'data':items,
-        'current_user':request.user.twitteruser
+        'current_user':request.user.twitteruser,
+        'created_on':created_on
     }
 
     if request.method == "POST":
@@ -110,10 +108,8 @@ def add_tweet(request):
 
             Tweet.objects.create(
                 body=data['body'],
-                # author=data['author'],
-                author=request.user.twitteruser
+                author=request.user.twitteruser,
             )
-            # return render(request, 'home')
             return HttpResponseRedirect(reverse('home'), context)
 
     else:
