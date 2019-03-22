@@ -8,11 +8,11 @@
     {% include "navbar.html" with current_user=current_user %}
     {% include "sidebar.html" with current_user=current_user %}
     <h1>Add a tweet, {{ user }}!</h1>
-    <div>
-        {% for tweet in context %}
-        <li>
-            <a href="/tweet/{{ tweet.id }}">{{ tweet.author }}</a>
-        </li>
-        {% endfor %}
-    </div>
+
+    <form action="/add_tweet/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Submit" />
+    </form>
 </body>
+</html>

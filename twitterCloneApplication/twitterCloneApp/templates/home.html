@@ -5,31 +5,21 @@
     <title>TwitterClone</title>
 </head>
 <body>
-        
-    <div>{% include "navbar.html" %}</div>
-    <div>{% include "sidebar.html" %}</div>
-    <h3>Homepage Content</h3>
-    <div>What's happening, {{ user }}?</div>
+    {% include "navbar.html" with current_user=current_user %}
+    <h3>
+        {{ user }}'s Homepage Content
+    </h3>
+    <h1>
+        What's happening, {{ user }}?
+    </h1>
     <ul>
-        Below should be a list of the logged in TwitterUser's own tweets and people they follow.
-        {% for foo in data %}
+        {% for tweet in myTweets %}
         <li>
-            <a href='/recipe/{{foo.id}}'>{{ foo.title }},</a>
+            {{ tweet.body }}<a href='/profile/{{tweet.author}}'> by {{ tweet.author }},</a>
         </li>
         {% endfor %}
     </ul>
-    <!-- <div>
-            {% if user.is_authenticated%}
-            <div>** Username goes here **</div>
-            <div>** @username goes here **</div>
-            <div>** User's tweets go here **</div>
-            <div>** Following number goes here **</div>
-            <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-            <a href="{% url 'login' %}">Login</a>
-            <div></div>
-            <a href="{% url 'signup' %}">Sign Up</a>
-            {% endif %}
-        </div> -->
-    </body>
+    {% include "sidebar.html" with current_user=current_user %}
+    {% include "displayTweets.html" with current_user=current_user %}
+</body>
 </html>

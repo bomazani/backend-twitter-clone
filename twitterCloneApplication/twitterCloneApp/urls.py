@@ -20,15 +20,21 @@ from django.urls import include, path
 from twitterCloneApp.models import *
 from twitterCloneApp.views import home_view, login_view, signup_view, logout_view, tweet_view, profile_view, notification_view
 
+admin.site.register(TwitterUser)
+admin.site.register(Tweet)
+admin.site.register(Notification)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),
     path('signup/', views.signup_view, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('tweet/', views.tweet_view, name='tweet'),
+    path('tweet/<int:twitteruser_id>', views.tweet_view, name='tweet'),
+    path('add_tweet/', views.add_tweet, name='add_tweet'),
     path('notification/', views.notification_view, name='notification'),
-    path('profile/', views.profile_view, name='profile'),
+    path('profile/<int:twitteruser_id>', views.profile_view, name='profile'),
+
 ]
 
 if settings.DEBUG:

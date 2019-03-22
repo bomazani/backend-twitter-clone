@@ -6,9 +6,9 @@
 </head>
 <body>
         
-    <div>{% include "navbar.html" %}</div>
-    <div>{% include "sidebar.html" %}</div>
-    Here are your notifications, {{ user }}!
+    {% include "navbar.html" with current_user=current_user %}
+    {% include "sidebar.html" with current_user=current_user %}
+    <h1>Here are your notifications, {{ user }}!</h1>
     <ul>
         This should be a list of the logged-in TwitterUser's notifications.
     </ul>

@@ -8,24 +8,30 @@ class TwitterUser(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=124)
-    followed_users = models.ManyToManyField("self", symmetrical=False)
+    follows = models.ManyToManyField("self", related_name='followed_by', symmetrical=False)
 
     def __str__(self):
         return self.user.username
 
 class Tweet(models.Model):
-    username = models.ForeignKey(
+    # username = models.ForeignKey(
+    #     TwitterUser,
+    #     on_delete=models.CASCADE
+    # )
+    author = models.ForeignKey(
         TwitterUser,
         on_delete=models.CASCADE
     )
-    body = models.TextField(null=True, blank=True)
+
+    body = models.CharField(max_length=140, default='No message.')
+
     tweetTime = timezone.now()
 
     def __str__(self):
-        return self.username
+        return self.author.user.username
 
     class Meta:
-        ordering = ('username',)
+        ordering = ('author',)
 
 class Notification(models.Model):
     ''' title and page below were added as dummy fields '''

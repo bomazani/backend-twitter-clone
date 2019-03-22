@@ -6,23 +6,15 @@
     </head>
     <body>
         <div>
-            <h3>Sidebar
-            <!-- </h3>
-            <div>** Username goes here **</div>
-            <div>** @username goes here **</div>
-            <div>** User's tweets go here **</div>
-            <div>** Following number goes here **</div> -->
-            <!-- <a href="{% url 'logout' %}">Logout</a> -->
-        </div>
-
-        <div>
             {% if user.is_authenticated%}
-            <div>** Username goes here **</div>
-            <div>** @username goes here **</div>
-            <div>** User's tweets go here **</div>
-            <div>** Following number goes here **</div>
+            <h3>{{ current_user }}'s sidebar</h3>
+            <div>** {{ current_user }} **</div>
+            <div>** @{{ current_user }} **</div>
+            <div>** number of {{ current_user }}'s tweets go here **</div>
+            <div>** number of users that {{ current_user }} is following goes here **</div>
             <a href="{% url 'logout' %}">Logout</a>
             {% else %}
+            <h3>Generic sidebar</h3>
             <a href="{% url 'login' %}">Login</a>
             <div></div>
             <a href="{% url 'signup' %}">Sign Up</a>

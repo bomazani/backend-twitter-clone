@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tweets Bar</title>
+    </head>
+    <body>
+        <div>
+            <!-- <h3>{{ user }}'s Tweets</h3> -->
+            <h3>Tweets</h3>
+            <div>
+                {% for tweet in tweets %}
+                <li>
+                    {{ tweet.body }}
+                    <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>
+                </li>
+                <li>tweet.author = {{ tweet.author }}</li>
+                <li>tweet = {{ tweet }}</li>
+                <li>tweet.id = {{ tweet.id }}</li>
+                <li>tweet.author.id = {{ tweet.author.id }}</li>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

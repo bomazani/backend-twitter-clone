@@ -20,6 +20,7 @@ def signup_view(request):
             data = form.cleaned_data
             user = User.objects.create_user(
                 username=data['username'],
+                password=data['password'],
                 email=data['email']
             )
             login(request, user)
@@ -32,12 +33,11 @@ def signup_view(request):
     return render(request, html, {'form': form})
 
 def login_view(request):
-    html = 'generic_form.html'
+    html = 'login.html'
     form = None
 
     if request.method == "POST":
         form = LoginForm(request.POST)
-
         if form.is_valid():
             data = form.cleaned_data
             user = authenticate(
@@ -47,6 +47,8 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', '/'))
+            # else:
+            #     return render(request,'signup.html', {'form': form})
     else:
         form = LoginForm()
     return render(request, html, {'form': form})
@@ -58,31 +60,74 @@ def logout_view(request):
 @login_required()
 def home_view(request):
     items = TwitterUser.objects.all()
-    return render(request, 'home.html', {'data':items})
+    allTweets = Tweet.objects.all()
+    context = {
+        'data':items,
+        'current_user':request.user.twitteruser,
+        'tweets':allTweets
+    }
+    return render(request, 'home.html', context)
 
 @login_required()
-def profile_view(request):
-# def profile_view(request, user_id):
-    items = get_object_or_404(TwitterUser)
-    # items = get_object_or_404(TwitterUser, id=user_id)
-    return render(request, 'profile.html', {'data':items})
+def profile_view(request, twitteruser_id):
+    myuser = TwitterUser.objects.get(id=twitteruser_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    context = {
+        # 'data':items,
+        'current_user':myuser,
+        'tweets':mytweets,
+        'myuser':myuser
+    }
+    return render(request, 'profile.html', context)
 
 @login_required()
-def tweet_view(request):
-    items = get_object_or_404(Tweet)
-# def tweet_view(request, tweet_id):
-#     items = get_object_or_404(TwitterUser, id=tweet_id)
-    return render(request, 'tweet.html', {'data':items})
+def tweet_view(request, twitteruser_id):
+    tweets = Tweet.objects.all()
+    mytweets = [1, 2, 3, 4, 5]
+    context = {
+        'data':tweets,
+        'mytweets': mytweets,
+        'current_user':request.user.twitteruser
+    }
+    return render(request, 'displayTweets.html', context)
+
+@login_required()
+def add_tweet(request):
+# def add_tweet(request):
+    html = 'add_tweet.html'
+    form = None
+    items = TwitterUser.objects.all()
+    context = {
+        'data':items,
+        'current_user':request.user.twitteruser
+    }
+
+    if request.method == "POST":
+        form = TweetForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            Tweet.objects.create(
+                body=data['body'],
+                # author=data['author'],
+                author=request.user.twitteruser
+            )
+            # return render(request, 'home')
+            return HttpResponseRedirect(reverse('home'), context)
+
+    else:
+        form = TweetForm()
+    context.update({'form': form})
+    return render(request, html, context)
 
 @login_required
 def notification_view(request):
-    items = get_object_or_404(Tweet)
-    # return render(request, 'notification.html', {'data':items})
-    # return render(request, 'notification.html', {'data': items})
-    # return HttpResponseRedirect(request.GET.get('next', '/'))
-    html = 'generic_form.html'
-    form = None
-    return render(request, html, {'form': form})
+    items = Notification.objects.all()
+    context = {
+        'data':items,
+        'current_user':request.user.twitteruser    }
+    return render(request, 'notification.html', context)
 
 
 
