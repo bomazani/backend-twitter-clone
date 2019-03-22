@@ -101,10 +101,15 @@ def add_tweet(request):
     form = None
     items = TwitterUser.objects.all()
     created_on = Tweet.tweetTime
+    current_user = request.user.twitteruser
+    mytweets = Tweet.objects.filter(author=current_user.id)
+    numtweets = len(mytweets)
+
     context = {
         'data':items,
         'current_user':request.user.twitteruser,
-        'created_on':created_on
+        'created_on':created_on,
+        'numtweets':numtweets
     }
 
     if request.method == "POST":
@@ -127,9 +132,15 @@ def add_tweet(request):
 @login_required
 def notification_view(request):
     items = Notification.objects.all()
+    current_user = request.user.twitteruser
+    mytweets = Tweet.objects.filter(author=current_user.id)
+    numtweets = len(mytweets)
+
     context = {
         'data':items,
-        'current_user':request.user.twitteruser    }
+        'current_user':request.user.twitteruser,
+        'numtweets':numtweets
+    }
     return render(request, 'notification.html', context)
 
 
