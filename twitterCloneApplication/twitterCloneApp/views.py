@@ -10,7 +10,7 @@ from twitterCloneApp.models import TwitterUser, Tweet, Notification
 from twitterCloneApp.forms import TweetForm, SignupForm, LoginForm
 
 def signup_view(request):
-    html = 'generic_form.html'
+    html = 'genericForm.html'
     form = None
 
     if request.method == "POST":
@@ -97,7 +97,7 @@ def tweet_view(request, twitteruser_id):
 
 @login_required()
 def add_tweet(request):
-    html = 'add_tweet.html'
+    html = 'addTweet.html'
     form = None
     items = TwitterUser.objects.all()
     created_on = Tweet.tweetTime
