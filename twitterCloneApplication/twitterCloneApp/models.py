@@ -22,16 +22,14 @@ class Tweet(models.Model):
         TwitterUser,
         on_delete=models.CASCADE
     )
-
     body = models.CharField(max_length=140, default='No message.')
-
-    tweetTime = timezone.now()
+    tweetTime = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.author.user.username
 
     class Meta:
-        ordering = ('author',)
+        ordering = ('tweetTime',)
 
 class Notification(models.Model):
     ''' title and page below were added as dummy fields '''
