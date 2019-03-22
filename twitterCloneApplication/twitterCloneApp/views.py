@@ -59,10 +59,15 @@ def logout_view(request):
 def home_view(request):
     items = TwitterUser.objects.all()
     allTweets = Tweet.objects.all()
+    current_user = request.user.twitteruser
+    mytweets = Tweet.objects.filter(author=current_user.id)
+    numtweets = len(mytweets)
+
     context = {
         'data':items,
         'current_user':request.user.twitteruser,
-        'tweets':allTweets
+        'tweets':allTweets,
+        'numtweets':numtweets,
     }
     return render(request, 'home.html', context)
 
@@ -70,10 +75,12 @@ def home_view(request):
 def profile_view(request, twitteruser_id):
     myuser = TwitterUser.objects.get(id=twitteruser_id)
     mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
     context = {
         'current_user':myuser,
         'tweets':mytweets,
-        'myuser':myuser
+        'myuser':myuser,
+        'numtweets':numtweets
     }
     return render(request, 'profile.html', context)
 

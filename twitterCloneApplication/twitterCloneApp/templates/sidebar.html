@@ -10,7 +10,7 @@
             <h3>{{ current_user }}'s sidebar</h3>
             <div>** {{ current_user }} **</div>
             <div>** @{{ current_user }} **</div>
-            <div>** number of {{ current_user }}'s tweets go here **</div>
+            <div>** number of {{ current_user }}'s tweets: {{ numtweets }} **</div>
             <div>** number of users that {{ current_user }} is following goes here **</div>
             <a href="{% url 'logout' %}">Logout</a>
             {% else %}
