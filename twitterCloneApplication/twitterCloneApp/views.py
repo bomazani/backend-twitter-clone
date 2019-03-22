@@ -93,7 +93,7 @@ def add_tweet(request):
     html = 'add_tweet.html'
     form = None
     items = TwitterUser.objects.all()
-    created_on = request.user.tweetTime
+    created_on = Tweet.tweetTime
     context = {
         'data':items,
         'current_user':request.user.twitteruser,

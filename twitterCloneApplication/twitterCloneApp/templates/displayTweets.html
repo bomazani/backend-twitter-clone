@@ -5,23 +5,21 @@
         <title>Tweets Bar</title>
     </head>
     <body>
+        <h3>Tweets</h3>
         <div>
-            <!-- <h3>{{ user }}'s Tweets</h3> -->
-            <h3>Tweets</h3>
-            <div>
-                {% for tweet in tweets %}
-                <li>
-                    {{ tweet.body }}
-                    <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>
-                    {{ created_on }}
-                </li>
-                <li>tweet.author = {{ tweet.author }}</li>
-                <li>tweet = {{ tweet }}</li>
-                <li>tweet.id = {{ tweet.id }}</li>
-                <li>tweet.author.id = {{ tweet.author.id }}</li>
-                <br>
-                {% endfor %}
-            </div>
+            {% for tweet in tweets %}
+            <li>
+                {{ tweet.body }}
+                <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>
+                on {{ tweet.tweetTime }}
+            </li>
+            <li>tweet.author = {{ tweet.author }}</li>
+            <li>tweet = {{ tweet }}</li>
+            <li>tweet.id = {{ tweet.id }}</li>
+            <li>tweet.author.id = {{ tweet.author.id }}</li>
+            <li>tweet.tweetTime = {{ tweet.tweetTime }}</li>
+            <br>
+            {% endfor %}
         </div>
     </body>
 </html>
