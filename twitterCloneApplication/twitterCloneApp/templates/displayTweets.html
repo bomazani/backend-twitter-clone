@@ -9,15 +9,15 @@
         <div>
             {% for tweet in tweets %}
             <li>
-                {{ tweet.body }}
+                <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
                 <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>
                 on {{ tweet.tweetTime }}
             </li>
-            <li>tweet.author = {{ tweet.author }}</li>
+            <!-- <li>tweet.author = {{ tweet.author }}</li>
             <li>tweet = {{ tweet }}</li>
             <li>tweet.id = {{ tweet.id }}</li>
             <li>tweet.author.id = {{ tweet.author.id }}</li>
-            <li>tweet.tweetTime = {{ tweet.tweetTime }}</li>
+            <li>tweet.tweetTime = {{ tweet.tweetTime }}</li> -->
             <br>
             {% endfor %}
         </div>

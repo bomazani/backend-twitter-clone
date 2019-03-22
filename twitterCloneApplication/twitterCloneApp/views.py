@@ -87,13 +87,16 @@ def profile_view(request, twitteruser_id):
 @login_required()
 def tweet_view(request, twitteruser_id):
     tweets = Tweet.objects.all()
-    mytweets = [1, 2, 3, 4, 5]
+    myuser = TwitterUser.objects.get(id=twitteruser_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
     context = {
-        'data':tweets,
-        'mytweets': mytweets,
-        'current_user':request.user.twitteruser
+        'current_user':myuser,
+        'tweets':mytweets,
+        'myuser':myuser,
+        'numtweets':numtweets
     }
-    return render(request, 'displayTweets.html', context)
+    return render(request, 'singleTweet.html', context)
 
 @login_required()
 def add_tweet(request):

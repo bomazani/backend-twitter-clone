@@ -15,7 +15,7 @@
             <li>
                 {% for tweet in tweets %}
                 <li>
-                    {{tweet.body}}
+                    <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
                     <a href="/profile/{{ myuser.id }}"> by {{ myuser }} </a>
                      on {{ tweet.tweetTime }}
                 </li>

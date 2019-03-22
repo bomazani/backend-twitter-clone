@@ -18,7 +18,7 @@ from twitterCloneApp import views
 from django.conf import settings
 from django.urls import include, path
 from twitterCloneApp.models import *
-from twitterCloneApp.views import home_view, login_view, signup_view, logout_view, tweet_view, profile_view, notification_view
+from twitterCloneApp.views import home_view, login_view, signup_view, logout_view, tweet_view, profile_view, notification_view, add_tweet
 
 admin.site.register(TwitterUser)
 admin.site.register(Tweet)
@@ -30,7 +30,7 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('tweet/<int:twitteruser_id>', views.tweet_view, name='tweet'),
+    path('tweet/<int:tweet_id>', views.tweet_view, name='tweet'),
     path('add_tweet/', views.add_tweet, name='add_tweet'),
     path('notification/', views.notification_view, name='notification'),
     path('profile/<int:twitteruser_id>', views.profile_view, name='profile'),
