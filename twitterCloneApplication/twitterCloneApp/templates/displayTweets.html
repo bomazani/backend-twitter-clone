@@ -10,7 +10,7 @@
             {% for tweet in tweets %}
             <li>
                 {{ tweet.body }}
-                <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>
+                <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>
                 on {{ tweet.tweetTime }}
             </li>
             <li>tweet.author = {{ tweet.author }}</li>

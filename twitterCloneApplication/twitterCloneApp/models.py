@@ -25,7 +25,7 @@ class Tweet(models.Model):
         return self.author.user.username
 
     class Meta:
-        ordering = ('tweetTime',)
+        ordering = ('-tweetTime',)
 
 class Notification(models.Model):
     ''' title and page below were added as dummy fields '''
