@@ -36,7 +36,8 @@ urlpatterns = [
     path('profile/<int:twitteruser_id>', views.profile_view, name='profile'),
     # path('profile/<str:username>', views.profile_view, name='profile'),
     # path('<str:username>/', views.profile_view, name='profile'),
-
+    # path('<str:username>/follows/', views.follows_view, name='follows'),
+    # path('<str:username>/following/', views.following_view, name='following'),
 ]
 
 if settings.DEBUG:

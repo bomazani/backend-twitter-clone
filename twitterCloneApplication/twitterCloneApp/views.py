@@ -156,7 +156,7 @@ def notification_view(request):
     }
     return render(request, 'notification.html', context)
 
-def follow_feed(request):
+def follow_view(request):
     ''' obtained from djeets. May need to adjust names/variables. '''
     userids = {}
     for id in request.user.profile.follows.all():
@@ -168,4 +168,16 @@ def follow_feed(request):
     return render(request, 'feed.html', {'followtweets':followtweets})
     # return render(request, 'displayFollowTweets.html', {'followtweets':followtweets})
 
+def follows(request, username):
+    ''' obtained from djeets. May need to adjust names/variables. '''
+    user = TwitterUser.objects.get(username=username)
+    tweeterprofiles = user.twitterprofile.follows
 
+    return render(request, 'users.html', {'title': 'Follows', 'twitterprofiles': twitterprofiles})
+
+def followers(request, username):
+    ''' obtained from djeets. May need to adjust names/variables. '''
+    user = TwitterUser.objects.get(username=username)
+    tweeterprofiles = user.twitterprofile.followed_by
+
+    return render(request, 'users.html', {'title': 'Followers', 'twitterprofiles': twitterprofiles})

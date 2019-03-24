@@ -20,5 +20,23 @@
             <a href="{% url 'signup' %}">Sign Up</a>
             {% endif %}
         </div>
+        <br>
+        <!-- *** Adds follows & following functionality *** -->
+        <hr> # Add this line
+    
+        <b><a href="/{{ user.username }}/follows/">Follows:</a></b> {{ user.djeeterprofile.follows.count }} -
+        <b><a href="/{{ user.username }}/followers/">Followers:</a></b> {{ user.djeeterprofile.followed_by.count }}
+    
+        {% ifnotequal request.user user %}
+          <hr>
+    
+          {% if request.user.djeeterprofile in user.djeeterprofile.followed_by.all %}
+            <a href="/{{ user.username }}/stopfollow/" class="btn btn-danger">Stop follow</a>
+          {% else %}
+            <a href="/{{ user.username }}/follow/" class="btn btn-success">Follow</a>
+          {% endif %}
+
+        {% endifnotequal %}
+        <hr>
     </body>
 </html>

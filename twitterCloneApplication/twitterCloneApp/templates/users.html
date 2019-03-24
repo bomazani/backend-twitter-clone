@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Users</title>
+    </head>
+    <body>
+        <h3>Users</h3>
+        <ul>
+            {% for tweeter in tweeterprofiles %}
+            <li><a href="/{{ Tweet.user.username }}/">@{{ Tweet.user.username }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
