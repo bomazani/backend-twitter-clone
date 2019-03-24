@@ -9,10 +9,19 @@
     {% include "sidebar.html" with current_user=current_user %}
     <h1>Add a tweet, {{ user }}!</h1>
     <div>
-        {% for tweet in context %}
         <li>
-            <a href="/tweet/{{ tweet.id }}">{{ tweet.author }}</a>
+            {% for tweet in singleTweet %}
+            {{ tweet.body }} by <a href="/profile/{{ tweet.author_id }}">{{ tweet.author }}</a>
+            {% endfor %}
         </li>
-        {% endfor %}
+        <!-- <li>current_user = {{ current_user }}</li>
+        <li>singleTweet = {{ singleTweet }}</li>
+        <li>tweets = {{tweets}}</li>
+        <li>tweetBody = {{tweetBody}}</li>
+        <li>myuser = {{myuser}}</li>
+        <li>numtweets = {{numtweets}}</li>
+        <li>mytweets = {{mytweets}}</li>
+        <li>this_id = {{this_id}}</li>
+        <li>singleTweetAuthor = {{singleTweet.author}}</li> -->
     </div>
 </body>

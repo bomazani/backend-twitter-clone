@@ -72,7 +72,9 @@ def home_view(request):
     return render(request, 'home.html', context)
 
 @login_required()
+# def profile_view(request, username):
 def profile_view(request, twitteruser_id):
+    # myuser = TwitterUser.objects.get(username=username)
     myuser = TwitterUser.objects.get(id=twitteruser_id)
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
@@ -85,16 +87,24 @@ def profile_view(request, twitteruser_id):
     return render(request, 'profile.html', context)
 
 @login_required()
-def tweet_view(request, twitteruser_id):
+def single_tweet_view(request, tweet_id):
+    this_id = tweet_id
     tweets = Tweet.objects.all()
-    myuser = TwitterUser.objects.get(id=twitteruser_id)
-    mytweets = Tweet.objects.filter(author=myuser)
+    current_user = request.user.twitteruser
+    mytweets = Tweet.objects.filter(author=current_user)
+    singleTweet = Tweet.objects.filter(id=tweet_id)
+    # tweetBody = singleTweet.body
+    myuser = TwitterUser.objects.filter()
     numtweets = len(mytweets)
     context = {
-        'current_user':myuser,
-        'tweets':mytweets,
-        'myuser':myuser,
-        'numtweets':numtweets
+        'current_user':current_user,
+        'singleTweet':singleTweet,
+        'tweets':tweets,
+        # 'tweetBody':tweetBody,
+        # 'myuser':myuser,
+        'numtweets':numtweets,
+        'mytweets':mytweets,
+        'this_id':this_id
     }
     return render(request, 'singleTweet.html', context)
 
@@ -146,5 +156,16 @@ def notification_view(request):
     }
     return render(request, 'notification.html', context)
 
+def follow_feed(request):
+    ''' obtained from djeets. May need to adjust names/variables. '''
+    userids = {}
+    for id in request.user.profile.follows.all():
+        userids.append(id)
+    userids.append(request.user.id)
+    # [0:25] limits the number of tweets to 25.
+    followtweets = Tweet.objects.filter(user_id__in=userids)[0:25]
+
+    return render(request, 'feed.html', {'followtweets':followtweets})
+    # return render(request, 'displayFollowTweets.html', {'followtweets':followtweets})
 
 
