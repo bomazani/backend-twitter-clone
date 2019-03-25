@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -171,13 +171,27 @@ def follow_view(request):
 def follows(request, username):
     ''' obtained from djeets. May need to adjust names/variables. '''
     user = TwitterUser.objects.get(username=username)
-    tweeterprofiles = user.twitterprofile.follows
+    tweeterprofiles = user.twitterprofile.follows.select_related('user').all()
 
     return render(request, 'users.html', {'title': 'Follows', 'twitterprofiles': twitterprofiles})
 
 def followers(request, username):
     ''' obtained from djeets. May need to adjust names/variables. '''
     user = TwitterUser.objects.get(username=username)
-    tweeterprofiles = user.twitterprofile.followed_by
+    tweeterprofiles = user.twitterprofile.followed_by.select_related('user').all()
 
     return render(request, 'users.html', {'title': 'Followers', 'twitterprofiles': twitterprofiles})
+
+@login_required
+def startfollow(request, username):
+    user = TwitterUser.objects.get(username=username)
+    request.user.twitterprofile.follows.add(user.twitterprofile)
+
+    return redirect('/' + user.username + '/')
+
+@login_required
+def stopfollow(request, username):
+    user = TwitterUser.objects.get(username=username)
+    request.user.twitterprofile.follows.delete(user.twitterprofile)
+
+    return redirect('/' + user.username + '/')

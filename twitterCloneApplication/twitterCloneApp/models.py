@@ -28,10 +28,7 @@ class Tweet(models.Model):
         ordering = ('-tweetTime',)
 
 class Notification(models.Model):
-    ''' title and page below were added as dummy fields '''
-    title = models.CharField(max_length=124, default='Filler Text')
-    description = models.CharField(max_length=124, null=True, blank=True)
-    tweets = models.ManyToManyField(Tweet)
+    tweets = models.ForeignKeyField(Tweet)
     twitter_users = models.ManyToManyField(TwitterUser)
 
     def __str__(self):

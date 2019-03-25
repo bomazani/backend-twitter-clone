@@ -38,6 +38,8 @@ urlpatterns = [
     # path('<str:username>/', views.profile_view, name='profile'),
     # path('<str:username>/follows/', views.follows_view, name='follows'),
     # path('<str:username>/following/', views.following_view, name='following'),
+    # path('<str:username>/startfollow/', follow, name='startfollow'),
+    # path('<str:username>/stopfollow/', stopfollow, name='stopfollow'),
 ]
 
 if settings.DEBUG:
