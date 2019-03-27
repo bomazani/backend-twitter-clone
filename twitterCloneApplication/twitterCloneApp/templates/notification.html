@@ -10,7 +10,41 @@
     {% include "sidebar.html" with current_user=current_user %}
     <h1>Here are your notifications, {{ user }}!</h1>
     <ul>
-        This should be a list of the logged-in TwitterUser's notifications.
-    </ul>
-</body>
+        {% for n in notifications %}
+        <li>
+            <a href="/singleTweet/{{ n.tweet.id }}">{{ n.tweet.body }}</a>
+            <a href="/profile/{{ n.tweet.author.id }}"> by {{ n.tweet.author }} </a>
+             on {{ n.tweet.tweetTime }}
+        </li>
+{% endfor %}
+    <!-- </ul>
+    <h1>*********</h1>
+            <li>
+                user = {{ user }}
+            </li>
+            <li>
+                user.id = {{ user.id }}
+            </li>
+            <li>
+                current_user = {{ current_user }}
+            </li>
+            <li>
+                current_user.id = {{ current_user.id }}
+            </li>
+            <li>
+                body = {{ body }}
+            </li>
+            <li>
+                mybody = {{ mybody }}
+            </li>
+            <li>tweet.tweetTime = {{ tweet.tweetTime }}</li>
+            <li>tweetTime = {{ tweetTime }}</li>
+
+            <li>tweet.created_on = {{ tweet.created_on }}</li>
+            <li>myrequest = {{ myrequest }}</li>
+            <li>numtweets = {{ numtweets }}</li>
+            <li>mytweets = {{mytweets}}</li>
+            <li>notifications = {{ notifications }}</li> -->
+
+        </body>
 </html>

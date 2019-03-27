@@ -6,8 +6,8 @@
 </head>
 <body>
     {% include "navbar.html" with current_user=current_user %}
-    {% include "sidebar.html" with current_user=current_user %}
-    <h1>Add a tweet, {{ user }}!</h1>
+    <!-- {% include "sidebar.html" with current_user=current_user %} -->
+    <h1>Here is an isolated view of that tweet, {{ user }}!</h1>
     <div>
         <li>
             {% for tweet in singleTweet %}
@@ -22,6 +22,6 @@
         <li>numtweets = {{numtweets}}</li>
         <li>mytweets = {{mytweets}}</li>
         <li>this_id = {{this_id}}</li>
-        <li>singleTweetAuthor = {{singleTweet.author}}</li> -->
+        <li>singleTweetAuthor = {{singleTweet.author}}</li> 
     </div>
 </body>

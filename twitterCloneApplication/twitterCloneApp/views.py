@@ -130,11 +130,17 @@ def add_tweet(request):
 
         if form.is_valid():
             data = form.cleaned_data
-
-            Tweet.objects.create(
+            # create an empty list for regex matches
+            matches = []
+            # call an unsaved instance of the tweet
+            t = Tweet(
                 body=data['body'],
                 author=request.user.twitteruser,
             )
+            # call the 'create_notifications' function from the Tweet model
+            t.save()
+            t.create_notifications()
+            # save the instance of the new tweet
             return HttpResponseRedirect(reverse('home'), context)
 
     else:
@@ -144,15 +150,18 @@ def add_tweet(request):
 
 @login_required
 def notification_view(request):
-    items = Notification.objects.all()
     current_user = request.user.twitteruser
+    items = Notification.objects.filter(twitter_user=current_user)
     mytweets = Tweet.objects.filter(author=current_user.id)
     numtweets = len(mytweets)
+    myrequest = request
 
     context = {
-        'data':items,
         'current_user':request.user.twitteruser,
-        'numtweets':numtweets
+        'numtweets':numtweets,
+        'notifications': items,
+        'mytweets': mytweets,
+        'myrequest': myrequest,
     }
     return render(request, 'notification.html', context)
 
@@ -162,8 +171,7 @@ def follow_view(request):
     for id in request.user.profile.follows.all():
         userids.append(id)
     userids.append(request.user.id)
-    # [0:25] limits the number of tweets to 25.
-    followtweets = Tweet.objects.filter(user_id__in=userids)[0:25]
+    followtweets = Tweet.objects.filter(user_id__in=userids)
 
     return render(request, 'feed.html', {'followtweets':followtweets})
     # return render(request, 'displayFollowTweets.html', {'followtweets':followtweets})
