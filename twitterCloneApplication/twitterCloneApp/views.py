@@ -102,8 +102,6 @@ def single_user_view(request, username):
     }
     return render(request, 'singleuser.html', context)
 
-
-# @login_required()
 def single_tweet_view(request, tweet_id):
     this_id = tweet_id
     tweets = Tweet.objects.all()
@@ -119,10 +117,8 @@ def single_tweet_view(request, tweet_id):
         'this_id':this_id
 
         # 'current_user':current_user,
-        # 'tweetBody':tweetBody,
-        # 'myuser':myuser,
-        # 'numtweets':numtweets,
         # 'mytweets':mytweets,
+        # 'numtweets':numtweets,
     }
     return render(request, 'singleTweet.html', context)
 
@@ -155,10 +151,10 @@ def add_tweet(request):
                 body=data['body'],
                 author=request.user.twitteruser,
             )
-            # call the 'create_notifications' function from the Tweet model
-            t.save()
-            t.create_notifications()
             # save the instance of the new tweet
+            t.save()
+            # call the 'create_notifications' function from the Tweet model
+            t.create_notifications()
             return HttpResponseRedirect(reverse('home'), context)
 
     else:
