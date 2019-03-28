@@ -37,10 +37,8 @@ class Tweet(models.Model):
     body = models.CharField(max_length=140, default='No message.')
     tweetTime = models.DateTimeField(auto_now=True)
 
-    # ***CREATING NOTIFICATION WHEN @USERNAME APPEARS IN A TWEET***
+
     def create_notifications(self):
-        # Parse/Search each tweet body for a regex match of @ followed by characters.
-        # Drop the @, then search for the username in the list of users.
         text = self.body
         foundmatches = []
         matches = re.findall(r'@([a-zA-Z0-9_]+)', text)

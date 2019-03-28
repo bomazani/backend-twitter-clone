@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tweet</title>
+</head>
+<body>
+    {% include "navbar.html" with current_user=current_user %}
+    {% include "sidebar.html" with current_user=current_user %}
+    <h1>Here is {{ username }}'s tweets, {{ user }}!</h1>
+    <div>
+        <li>
+            {% for t in user_tweetz %}
+            <li>{{ t.body }} by <a href="/profile/{{ t.author_id }}">{{ t.author }}</a></li>
+            {% endfor %}
+        </li>
+        <!-- <li>
+            {% for t in user_tweets %}
+            <li>{{ t.body }} by <a href="/profile/{{ t.author_id }}">{{ t.author }}</a></li>
+            {% endfor %}
+        </li> -->
+
+        <!-- <h3>*************</h3>
+        <li>current_user = {{ current_user }}</li>
+        <li>selecteduser = {{ selecteduser }}</li>
+        <li>users = {{ users }}</li>
+        <li>username = {{ username }}</li> -->
+        <!-- <li>user_tweets = {{ user_tweets }}</li> -->
+        <!-- <li>usertweets = {{ usertweets }}</li>
+        <li>singleTweet = {{ singleTweet }}</li>
+        <li>tweets = {{ tweets }}</li> -->
+        <!-- <li>tweetBody = {{ tweetBody }}</li> -->
+        <!-- <li>numtweets = {{ numtweets }}</li> -->
+        <!-- <li>mytweets = {{ mytweets }}</li> -->
+        <!-- <li>this_id = {{ this_id }}</li> -->
+        <!-- <li>singleTweetAuthor = {{ singleTweet.author }}</li>  -->
+    </div>
+</body>

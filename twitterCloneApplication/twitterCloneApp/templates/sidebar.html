@@ -22,10 +22,10 @@
         </div>
         <br>
         <!-- *** Adds follows & following functionality *** -->
-        <hr> # Add this line
+        <hr> # Add follows/following stuff here:
     
-        <b><a href="/{{ user.username }}/follows/">Follows:</a></b> {{ user.djeeterprofile.follows.count }} -
-        <b><a href="/{{ user.username }}/followers/">Followers:</a></b> {{ user.djeeterprofile.followed_by.count }}
+        <br><a href="/{{ user.username }}/follows/">Follows:</a></br> {{ user.djeeterprofile.follows.count }}
+        <br><a href="/{{ user.username }}/followers/">Followers:</a></br> {{ user.djeeterprofile.followed_by.count }}
     
         {% ifnotequal request.user user %}
           <hr>

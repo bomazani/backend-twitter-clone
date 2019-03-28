@@ -34,6 +34,7 @@ urlpatterns = [
     path('add_tweet/', views.add_tweet, name='add_tweet'),
     path('notification/', views.notification_view, name='notification'),
     path('profile/<int:twitteruser_id>', views.profile_view, name='profile'),
+    path('user/<str:username>/', views.single_user_view, name='user'),
     # path('profile/<str:username>', views.profile_view, name='profile'),
     # path('<str:username>/', views.profile_view, name='profile'),
     # path('<str:username>/follows/', views.follows_view, name='follows'),

@@ -72,9 +72,7 @@ def home_view(request):
     return render(request, 'home.html', context)
 
 @login_required()
-# def profile_view(request, username):
 def profile_view(request, twitteruser_id):
-    # myuser = TwitterUser.objects.get(username=username)
     myuser = TwitterUser.objects.get(id=twitteruser_id)
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
@@ -85,6 +83,25 @@ def profile_view(request, twitteruser_id):
         'numtweets':numtweets
     }
     return render(request, 'profile.html', context)
+
+def single_user_view(request, username):
+    username=username
+    users = TwitterUser.objects.all()
+    tweets = Tweet.objects.all()
+    selecteduser = users.filter(user__username=username)
+    user_tweetz = tweets.filter(author__user__username=username)
+    # user_tweets = tweets.filter(author=selecteduser)
+    current_user = request.user
+    context = {
+        'selecteduser':selecteduser,
+        'tweets':tweets,
+        'users':users,
+        'username':username,
+        'current_user':current_user,
+        'user_tweetz':user_tweetz,
+    }
+    return render(request, 'singleuser.html', context)
+
 
 # @login_required()
 def single_tweet_view(request, tweet_id):
