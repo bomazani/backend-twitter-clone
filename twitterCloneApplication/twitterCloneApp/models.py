@@ -10,8 +10,8 @@ class TwitterUser(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=124)
-    follows = models.ManyToManyField("self", related_name='followed_by', symmetrical=False, blank=True)
-    followers = models.ManyToManyField("TwitterUser", related_name="Followers", symmetrical=False, blank=True)
+    follows = models.ManyToManyField("self", related_name='following', symmetrical=False, blank=True)
+    followers = models.ManyToManyField("TwitterUser", related_name="followed_by", symmetrical=False, blank=True)
 
     def __str__(self):
         return self.user.username
