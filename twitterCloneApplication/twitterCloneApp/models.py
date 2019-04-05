@@ -10,7 +10,8 @@ class TwitterUser(models.Model):
         on_delete=models.CASCADE
     )
     username = models.CharField(max_length=124)
-    follows = models.ManyToManyField("self", related_name='followed_by', symmetrical=False)
+    follows = models.ManyToManyField("self", related_name='followed_by', symmetrical=False, blank=True)
+    followers = models.ManyToManyField("TwitterUser", related_name="Followers", symmetrical=False, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -26,6 +27,8 @@ class Notification(models.Model):
         on_delete=models.CASCADE, null=True
     )
 
+    viewed = models.BooleanField(default=False)
+
     def __str__(self):
         return self.tweet.author.user.username 
 
@@ -40,7 +43,7 @@ class Tweet(models.Model):
 
     def create_notifications(self):
         text = self.body
-        foundmatches = []
+        # foundmatches = []
         matches = re.findall(r'@([a-zA-Z0-9_]+)', text)
         for match in matches:
             maybeuser = TwitterUser.objects.filter(user__username=match).first()

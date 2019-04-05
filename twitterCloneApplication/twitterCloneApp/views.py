@@ -206,14 +206,18 @@ def followers(request, username):
 
 @login_required
 def startfollow(request, username):
-    user = TwitterUser.objects.get(username=username)
+    current_user = request.user.twitteruser
+    # user = TwitterUser.objects.get(username=username)
+    user = get_object_or_404(TwitterUser, username=user_name)
     request.user.twitterprofile.follows.add(user.twitterprofile)
 
     return redirect('/' + user.username + '/')
 
 @login_required
 def stopfollow(request, username):
-    user = TwitterUser.objects.get(username=username)
+    current_user = request.user.twitteruser
+    # user = TwitterUser.objects.get(username=username)
+    user = get_object_or_404(TwitterUser, username=user_name)
     request.user.twitterprofile.follows.delete(user.twitterprofile)
 
     return redirect('/' + user.username + '/')
