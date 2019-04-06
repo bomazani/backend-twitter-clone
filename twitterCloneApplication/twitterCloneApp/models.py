@@ -11,7 +11,7 @@ class TwitterUser(models.Model):
     )
     username = models.CharField(max_length=124)
     follows = models.ManyToManyField("self", related_name='following', symmetrical=False, blank=True)
-    followers = models.ManyToManyField("TwitterUser", related_name="followed_by", symmetrical=False, blank=True)
+    follow = models.ManyToManyField("TwitterUser", related_name="followed_by", symmetrical=False, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -21,12 +21,10 @@ class Notification(models.Model):
         'Tweet',
         on_delete=models.CASCADE, null=True
     )
-
     twitter_user = models.ForeignKey(
         TwitterUser,
         on_delete=models.CASCADE, null=True
     )
-
     viewed = models.BooleanField(default=False)
 
     def __str__(self):
@@ -39,7 +37,6 @@ class Tweet(models.Model):
     )
     body = models.CharField(max_length=140, default='No message.')
     tweetTime = models.DateTimeField(auto_now=True)
-
 
     def create_notifications(self):
         text = self.body

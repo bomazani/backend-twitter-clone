@@ -179,45 +179,53 @@ def notification_view(request):
     }
     return render(request, 'notification.html', context)
 
-def follow_view(request):
-    ''' obtained from djeets. May need to adjust names/variables. '''
-    userids = {}
-    for id in request.user.profile.follows.all():
-        userids.append(id)
-    userids.append(request.user.id)
-    followtweets = Tweet.objects.filter(user_id__in=userids)
+# def follow_view(request):
+#     ''' obtained from djeets. May need to adjust names/variables. '''
+#     userids = {}
+#     for id in request.user.profile.follows.all():
+#         userids.append(id)
+#     userids.append(request.user.id)
+#     followtweets = Tweet.objects.filter(user_id__in=userids)
 
-    return render(request, 'feed.html', {'followtweets':followtweets})
+#     return render(request, 'feed.html', {'followtweets':followtweets})
     # return render(request, 'displayFollowTweets.html', {'followtweets':followtweets})
 
-def follows(request, username):
-    ''' obtained from djeets. May need to adjust names/variables. '''
-    user = TwitterUser.objects.get(username=username)
-    tweeterprofiles = user.twitterprofile.follows.select_related('user').all()
+# def follows(request, username):
+#     ''' obtained from djeets. May need to adjust names/variables. '''
+#     user = TwitterUser.objects.get(username=username)
+#     tweeterprofiles = user.twitterprofile.follows.select_related('user').all()
 
-    return render(request, 'users.html', {'title': 'Follows', 'twitterprofiles': twitterprofiles})
+#     return render(request, 'users.html', {'title': 'Follows', 'twitterprofiles': twitterprofiles})
 
-def followers(request, username):
-    ''' obtained from djeets. May need to adjust names/variables. '''
-    user = TwitterUser.objects.get(username=username)
-    tweeterprofiles = user.twitterprofile.followed_by.select_related('user').all()
+# def followers(request, username):
+#     ''' obtained from djeets. May need to adjust names/variables. '''
+#     user = TwitterUser.objects.get(username=username)
+#     tweeterprofiles = user.twitterprofile.followed_by.select_related('user').all()
 
-    return render(request, 'users.html', {'title': 'Followers', 'twitterprofiles': twitterprofiles})
-
-@login_required
-def startfollow(request, username):
-    current_user = request.user.twitteruser
-    # user = TwitterUser.objects.get(username=username)
-    user = get_object_or_404(TwitterUser, username=user_name)
-    request.user.twitterprofile.follows.add(user.twitterprofile)
-
-    return redirect('/' + user.username + '/')
+#     return render(request, 'users.html', {'title': 'Followers', 'twitterprofiles': twitterprofiles})
 
 @login_required
-def stopfollow(request, username):
-    current_user = request.user.twitteruser
-    # user = TwitterUser.objects.get(username=username)
-    user = get_object_or_404(TwitterUser, username=user_name)
-    request.user.twitterprofile.follows.delete(user.twitterprofile)
+def follow_view(request, username):
+    
 
-    return redirect('/' + user.username + '/')
+@login_required
+def add_follow(request, username):
+    # current_user = request.user.twitteruser
+    # user = TwitterUser.objects.get(username=username)
+    # user = get_object_or_404(TwitterUser, username=user_name)
+    # request.user.twitterprofile.follows.add(user.twitterprofile)
+    to_follow = TwitterUser.objects.filter(username=username).first()
+    html = 'sidebar.html'
+    add_follow(request, username)
+    return HttpResponseRedirect(reverse('sidebar', kwargs={'username': username}))
+
+@login_required
+def remove_follow(request, username):
+    # current_user = request.user.twitteruser
+    # user = TwitterUser.objects.get(username=username)
+    # user = get_object_or_404(TwitterUser, username=user_name)
+    # request.user.twitterprofile.follows.delete(user.twitterprofile)
+    to_unfollow = TwitterUser.objects.filter(username=username).first()
+    html = 'sidebar.html'
+    add_follow(request, username)
+    return HttpResponseRedirect(reverse('sidebar', kwargs={'username': username}))
