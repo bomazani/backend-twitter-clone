@@ -205,8 +205,9 @@ def notification_view(request):
 #     return render(request, 'users.html', {'title': 'Followers', 'twitterprofiles': twitterprofiles})
 
 @login_required
-def follow_view(request, username):
-    
+def follow_view(request, id):
+    pass
+
 
 @login_required
 def add_follow(request, username):
