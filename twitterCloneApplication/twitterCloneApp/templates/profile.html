@@ -9,8 +9,27 @@
         {% include "sidebar.html" with current_user=current_user %}
         <div>
             <h1>{{ current_user }}'s Tweets</h1>
-
         </div>
+        <!-- <hr> # Add follows/following stuff here: -->
+        <br>
+        {% if user.is_authenticated %}
+          {% if following %}
+            <a href = "/profile/{{ username }}/remove_follow">
+                <button>
+                    Unfollow
+                </button>
+            </a>
+          {% endif %}
+          {% if not_following %}
+            <a href = "/profile/{{ username }}/add_follow">
+                <button>
+                    Follow
+                </button>
+            </a>
+          {% endif %}
+        {% endif %}
+        <br>
+
         <ul>
             <li>
                 {% for tweet in tweets %}
@@ -23,40 +42,20 @@
             </li>
         </ul>
         <br>
-        <hr> # Add follows/following stuff here:
-    
-        <!-- <br><a href="/{{ user.username }}/follows/">Follows:</a></br> {{ user.twitterprofile.follows.count }}
-        <br><a href="/{{ user.username }}/followers/">Followers:</a></br> {{ user.twitterprofile.followed_by.count }}
-    
-        {% ifnotequal request.user user %}
-          <hr>
-    
-          {% if request.user.twitterprofile in user.twitterprofile.followed_by.all %}
-            <a href="/{{ user.username }}/stopfollow/" class="btn btn-danger">Stop follow</a>
-          {% else %}
-            <a href="/{{ user.username }}/follow/" class="btn btn-success">Follow</a>
-          {% endif %}
+        <div>
+            <div>current_user = {{ current_user }}</div>
+            <div>tweets = {{ tweets }}</div>
+            <div>myuser = {{ myuser }}</div>
+            <div>numtweets = {{ numtweets }}</div>
+            <div>user = {{ user }}</div>
+            <div>current_follow = {{ current_follow }}</div>
+            <div>current_follows = {{ current_follows }}</div>
+            <div>following = {{ following }}</div>
+            <div>not_following = {{ not_following }}</div>
+            <div>match = {{ match }}</div>
+            <div>match = {{ match }}</div>
 
-        {% endifnotequal %} -->
-        <!-- ********************** -->
-
-        {% if current_user.is_authenticated %}
-          {% if unfavorite %}
-            <a href = "/recipe/remove_follow/{{ username }}">
-              <button>
-                Remove Favorite
-              </button>
-            </a>
-          {% endif %}
-          {% if favorite %}
-            <a href = "/recipe/add_follow/{{ username }}">
-              <button>
-                Favorite
-              </button>
-            </a>
-          {% endif %}
-      {% endif %}
-      <br>
+        </div>
         <hr>
     </body>
 </html>
