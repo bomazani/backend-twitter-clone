@@ -1,5 +1,5 @@
-def add_follow(request, twitteruser):
-    request.user.follow.add(twitteruser)
+def add_follower(request, viewed_user):
+    request.user.twitteruser.follows.add(viewed_user)
 
-def remove_follow(request, twitteruser):
-    request.user.follow.remove(twitteruser)
+def remove_follower(request, viewed_user):
+    request.user.twitteruser.follows.remove(viewed_user)

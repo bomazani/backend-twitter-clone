@@ -8,6 +8,8 @@ from django.shortcuts import reverse
 
 from twitterCloneApp.models import TwitterUser, Tweet, Notification
 from twitterCloneApp.forms import TweetForm, SignupForm, LoginForm
+from twitterCloneApp.helpers import add_follower, remove_follower
+
 
 def signup_view(request):
     html = 'genericForm.html'
@@ -30,7 +32,9 @@ def signup_view(request):
             return HttpResponseRedirect(reverse('home'))
     else:
         form = SignupForm()
+        
     return render(request, html, {'form': form})
+
 
 def login_view(request):
     html = 'login.html'
@@ -49,11 +53,15 @@ def login_view(request):
                 return HttpResponseRedirect(request.GET.get('next', '/'))
     else:
         form = LoginForm()
+
     return render(request, html, {'form': form})
+
 
 def logout_view(request):
     logout(request)
+
     return HttpResponseRedirect("/")
+
 
 @login_required()
 def home_view(request):
@@ -69,67 +77,8 @@ def home_view(request):
         'tweets':allTweets,
         'numtweets':numtweets,
     }
+
     return render(request, 'home.html', context)
-
-# @login_required()
-# def profile_view(request, twitteruser_id):
-#     myuser = TwitterUser.objects.get(id=twitteruser_id)
-#     mytweets = Tweet.objects.filter(author=myuser)
-#     numtweets = len(mytweets)
-#     # 
-#     context = {
-#         'current_user':myuser,
-#         'tweets':mytweets,
-#         'myuser':myuser,
-#         'numtweets':numtweets
-#     }
-    
-#     return render(request, 'profile.html', context)
-
-@login_required()
-def profile_view(request, twitteruser_id):
-    user = request.user
-    user_name = request.user.username
-    myuser = TwitterUser.objects.get(id=twitteruser_id)
-    mytweets = Tweet.objects.filter(author=myuser)
-    numtweets = len(mytweets)
-    
-    current_follows = request.user.twitteruser.follows.all()
-    current_follow = request.user.twitteruser.follow.all()
-
-    if myuser in current_follows:
-        following = True
-        not_following = False
-
-    else:
-        following = False
-        not_following = True
-
-    if (str(user_name) == str(myuser)):
-        match = True
-    else:
-        match = False
-
-    data = {
-        'current_user':myuser,
-        'tweets':mytweets,
-        'myuser':myuser,
-        'numtweets':numtweets,
-
-        'user':user,
-        'current_follow': current_follow,
-        'current_follows': current_follows,
-        'following': following,
-        'not_following': not_following,
-        'match': match,
-    }
-   
-    return render(request, 'profile.html', data)
-
-
-
-
-
 
 
 def single_user_view(request, username):
@@ -148,7 +97,9 @@ def single_user_view(request, username):
         'current_user':current_user,
         'user_tweetz':user_tweetz,
     }
+
     return render(request, 'singleuser.html', context)
+
 
 def single_tweet_view(request, tweet_id):
     this_id = tweet_id
@@ -156,19 +107,14 @@ def single_tweet_view(request, tweet_id):
     singleTweet = Tweet.objects.filter(id=tweet_id)
     myuser = TwitterUser.objects.filter()
 
-    # current_user = request.user.twitteruser
-    # mytweets = Tweet.objects.filter(author=current_user)
-    # numtweets = len(mytweets)
     context = {
         'singleTweet':singleTweet,
         'tweets':tweets,
         'this_id':this_id
-
-        # 'current_user':current_user,
-        # 'mytweets':mytweets,
-        # 'numtweets':numtweets,
     }
+
     return render(request, 'singleTweet.html', context)
+
 
 @login_required()
 def add_tweet(request):
@@ -208,7 +154,9 @@ def add_tweet(request):
     else:
         form = TweetForm()
     context.update({'form': form})
+
     return render(request, html, context)
+
 
 @login_required
 def notification_view(request):
@@ -227,54 +175,161 @@ def notification_view(request):
     }
     return render(request, 'notification.html', context)
 
-# def follow_view(request):
-#     ''' obtained from djeets. May need to adjust names/variables. '''
-#     userids = {}
-#     for id in request.user.profile.follows.all():
-#         userids.append(id)
-#     userids.append(request.user.id)
-#     followtweets = Tweet.objects.filter(user_id__in=userids)
 
-#     return render(request, 'feed.html', {'followtweets':followtweets})
-    # return render(request, 'displayFollowTweets.html', {'followtweets':followtweets})
+@login_required()
+def profile_view(request, twitteruser_id):
+    user = request.user
+    user_name = request.user.username
+    myuser = TwitterUser.objects.get(id=twitteruser_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
+    
+    current_follows = request.user.twitteruser.follows.all()
+    current_follow = request.user.twitteruser.follow.all()
+    numfollows = len(current_follows)
 
-# def follows(request, username):
-#     ''' obtained from djeets. May need to adjust names/variables. '''
-#     user = TwitterUser.objects.get(username=username)
-#     tweeterprofiles = user.twitterprofile.follows.select_related('user').all()
+    if myuser in current_follows:
+        following = True
+        not_following = False
 
-#     return render(request, 'users.html', {'title': 'Follows', 'twitterprofiles': twitterprofiles})
+    else:
+        following = False
+        not_following = True
 
-# def followers(request, username):
-#     ''' obtained from djeets. May need to adjust names/variables. '''
-#     user = TwitterUser.objects.get(username=username)
-#     tweeterprofiles = user.twitterprofile.followed_by.select_related('user').all()
+    if (str(user_name) == str(myuser)):
+        match = True
+    else:
+        match = False
 
-#     return render(request, 'users.html', {'title': 'Followers', 'twitterprofiles': twitterprofiles})
-
-@login_required
-def follow_view(request, id):
-    pass
+    data = {
+        'current_user':myuser,
+        'tweets':mytweets,
+        'myuser':myuser,
+        'numtweets':numtweets,
+        'twitteruser_id':twitteruser_id,
+        'user':user,
+        'current_follow': current_follow,
+        'current_follows': current_follows,
+        'following': following,
+        'not_following': not_following,
+        'match': match,
+        'numfollows': numfollows
+    }
+   
+    return render(request, 'profile.html', data)
 
 
 @login_required
 def add_follow(request, username):
-    # current_user = request.user.twitteruser
-    # user = TwitterUser.objects.get(username=username)
-    # user = get_object_or_404(TwitterUser, username=user_name)
-    # request.user.twitterprofile.follows.add(user.twitterprofile)
-    following = TwitterUser.objects.filter(username=username).first()
+    user = request.user
+    username = username
+    viewed_user = TwitterUser.objects.filter(username=username).first()
     html = 'profile.html'
-    add_follow(request, username)
-    return HttpResponseRedirect(reverse('add_follow', kwargs={'username': username}))
+    myuser = TwitterUser.objects.get(username=username)
+    viewed_user_id = viewed_user.id
+    twitteruserid = myuser.id
+
+    add_follower(request, viewed_user)
+
+    user = request.user
+    user_name = request.user.username
+    myuser = TwitterUser.objects.get(id=viewed_user_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
+    current_follows = request.user.twitteruser.follows.all()
+    current_follow = request.user.twitteruser.follow.all()
+    numfollows = len(current_follows)
+    twitteruser_id = 'xyz'
+
+    if myuser in current_follows:
+        following = True
+        not_following = False
+
+    else:
+        following = False
+        not_following = True
+
+    if (str(user_name) == str(myuser)):
+        match = True
+    else:
+        match = False
+
+    context = {
+        'current_user':myuser,
+        'tweets':mytweets,
+        'myuser':myuser,
+        'numtweets':numtweets,
+        'twitteruser_id':twitteruser_id,
+        'user':user,
+        'current_follow': current_follow,
+        'current_follows': current_follows,
+        'following': following,
+        'not_following': not_following,
+        'match': match,
+        'numfollows': numfollows,
+        'username': username,
+        'viewed_user': viewed_user,
+        'viewed_user_id': viewed_user_id,
+        'twitteruserid': twitteruserid,
+        'numfollows': numfollows,
+    }
+
+    return render(request, 'profile.html', context)
+
 
 @login_required
 def remove_follow(request, username):
-    # current_user = request.user.twitteruser
-    # user = TwitterUser.objects.get(username=username)
-    # user = get_object_or_404(TwitterUser, username=user_name)
-    # request.user.twitterprofile.follows.delete(user.twitterprofile)
-    following = TwitterUser.objects.filter(username=username).first()
+    user = request.user
+    username = username
+    viewed_user = TwitterUser.objects.filter(username=username).first()
     html = 'profile.html'
-    add_follow(request, username)
-    return HttpResponseRedirect(reverse('remove_follow', kwargs={'username': username}))
+    myuser = TwitterUser.objects.get(username=username)
+    viewed_user_id = viewed_user.id
+    twitteruserid = myuser.id
+
+    remove_follower(request, viewed_user)
+
+    user = request.user
+    user_name = request.user.username
+    myuser = TwitterUser.objects.get(id=viewed_user_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
+    current_follows = request.user.twitteruser.follows.all()
+    current_follow = request.user.twitteruser.follow.all()
+    numfollows = len(current_follows)
+    twitteruser_id = 'xyz'
+
+    if myuser in current_follows:
+        following = True
+        not_following = False
+
+    else:
+        following = False
+        not_following = True
+
+    if (str(user_name) == str(myuser)):
+        match = True
+    else:
+        match = False
+
+    context = {
+        'current_user': myuser,
+        'tweets': mytweets,
+        'myuser': myuser,
+        'numtweets': numtweets,
+        'twitteruser_id': twitteruser_id,
+        'user': user,
+        'current_follow': current_follow,
+        'current_follows': current_follows,
+        'following': following,
+        'not_following': not_following,
+        'match': match,
+        'numfollows': numfollows,
+        'username': username,
+        'viewed_user': viewed_user,
+        'viewed_user_id': viewed_user_id,
+        'twitteruserid': twitteruserid,
+        'numfollows': numfollows,
+    }
+
+    return render(request, 'profile.html', context)

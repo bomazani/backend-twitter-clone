@@ -10,18 +10,17 @@
         <div>
             <h1>{{ current_user }}'s Tweets</h1>
         </div>
-        <!-- <hr> # Add follows/following stuff here: -->
         <br>
         {% if user.is_authenticated %}
           {% if following %}
-            <a href = "/profile/{{ username }}/remove_follow">
+            <a href = "/profile/{{ current_user }}/remove_follow">
                 <button>
                     Unfollow
                 </button>
             </a>
           {% endif %}
           {% if not_following %}
-            <a href = "/profile/{{ username }}/add_follow">
+            <a href = "/profile/{{ current_user }}/add_follow">
                 <button>
                     Follow
                 </button>
@@ -53,7 +52,8 @@
             <div>following = {{ following }}</div>
             <div>not_following = {{ not_following }}</div>
             <div>match = {{ match }}</div>
-            <div>match = {{ match }}</div>
+            <div>viewed_user_id = {{ viewed_user_id }}</div>
+            <div>twitteruserid = {{ twitteruserid }}</div>
 
         </div>
         <hr>

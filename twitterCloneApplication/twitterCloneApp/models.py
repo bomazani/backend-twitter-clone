@@ -11,7 +11,7 @@ class TwitterUser(models.Model):
     )
     username = models.CharField(max_length=124)
     follows = models.ManyToManyField("self", related_name='following', symmetrical=False, blank=True)
-    follow = models.ManyToManyField("TwitterUser", related_name="followed_by", symmetrical=False, blank=True)
+    # follow = models.ManyToManyField("TwitterUser", related_name="followed_by", symmetrical=False, blank=True)
 
     def __str__(self):
         return self.user.username
