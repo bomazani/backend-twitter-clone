@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <h3>All Users' Tweets</h3>
+        <h3>Active User's Tweets</h3>
         <title>Tweets Bar</title>
     </head>
     <body>
         <h3>Tweets</h3>
         <div>
-            {% for tweet in tweets %}
+            {% for tweet in my_tweets %}
                 <li>
                     <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
                     <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>

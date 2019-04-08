@@ -7,17 +7,21 @@
     <body>
         <div>
             {% if user.is_authenticated%}
-            <h3>{{ current_user }}'s sidebar</h3>
-            <div>** {{ current_user }} **</div>
-            <div>** @{{ current_user }} **</div>
-            <div>** number of {{ current_user }}'s tweets: {{ numtweets }} **</div>
-            <div>** number of users that {{ current_user }} is following: {{ numfollows }} **</div>
-            <a href="{% url 'logout' %}">Logout</a>
+              <h3>{{ current_user }}'s sidebar</h3>
+              <div>** {{ current_user }} **</div>
+              <div>** @{{ current_user }} **</div>
+              <div>** number of {{ current_user }}'s tweets: {{ numtweets }} **</div>
+                {% if match %}
+                  <div>** number of users that you are following: {{ numfollows }} **</div>
+                {% else %}
+                  <div>** number of users that {{ user }} is following: {{ numfollows }} **</div>
+                {% endif %}
+              <a href="{% url 'logout' %}">Logout</a>
             {% else %}
-            <h3>Generic sidebar</h3>
-            <a href="{% url 'login' %}">Login</a>
-            <div></div>
-            <a href="{% url 'signup' %}">Sign Up</a>
+              <h3>Generic sidebar</h3>
+              <a href="{% url 'login' %}">Login</a>
+              <div></div>
+              <a href="{% url 'signup' %}">Sign Up</a>
             {% endif %}
         </div>
         <br>

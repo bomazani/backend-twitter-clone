@@ -6,10 +6,10 @@
     </head>
     <body>
         <div>
-            <!-- <h3>{{ user }}'s Tweets</h3> -->
+            <h3>Followed User's Tweets</h3>
             <h3>Tweets</h3>
             <div>
-                {% for tweet in tweets %}
+                {% for tweet in followed_tweets %}
                 <li>
                     <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
                     <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>

@@ -32,7 +32,7 @@ def signup_view(request):
             return HttpResponseRedirect(reverse('home'))
     else:
         form = SignupForm()
-        
+
     return render(request, html, {'form': form})
 
 
@@ -185,7 +185,7 @@ def profile_view(request, twitteruser_id):
     numtweets = len(mytweets)
     
     current_follows = request.user.twitteruser.follows.all()
-    current_follow = request.user.twitteruser.follow.all()
+    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
 
     if myuser in current_follows:
@@ -208,7 +208,7 @@ def profile_view(request, twitteruser_id):
         'numtweets':numtweets,
         'twitteruser_id':twitteruser_id,
         'user':user,
-        'current_follow': current_follow,
+        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
@@ -237,7 +237,7 @@ def add_follow(request, username):
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
-    current_follow = request.user.twitteruser.follow.all()
+    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
     twitteruser_id = 'xyz'
 
@@ -261,7 +261,7 @@ def add_follow(request, username):
         'numtweets':numtweets,
         'twitteruser_id':twitteruser_id,
         'user':user,
-        'current_follow': current_follow,
+        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
@@ -295,7 +295,7 @@ def remove_follow(request, username):
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
-    current_follow = request.user.twitteruser.follow.all()
+    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
     twitteruser_id = 'xyz'
 
@@ -319,7 +319,7 @@ def remove_follow(request, username):
         'numtweets': numtweets,
         'twitteruser_id': twitteruser_id,
         'user': user,
-        'current_follow': current_follow,
+        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,

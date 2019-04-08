@@ -11,11 +11,18 @@
     <h1>Here are your notifications, {{ user }}!</h1>
     <ul>
         {% for n in notifications %}
-        <li>
-            <a href="/singleTweet/{{ n.tweet.id }}">{{ n.tweet.body }}</a>
-            <a href="/profile/{{ n.tweet.author.id }}"> by {{ n.tweet.author }} </a>
-             on {{ n.tweet.tweetTime }}
-        </li>
+            {% if n.viewed == False %}
+                <li>
+                    <a href="/singleTweet/{{ n.tweet.id }}">{{ n.tweet.body }}</a>
+                    <a href="/profile/{{ n.tweet.author.id }}"> by {{ n.tweet.author }} </a>
+                    on {{ n.tweet.tweetTime }}
+                    <br>
+                    <!-- <div>n.viewed = {{n.viewed}}</div> -->
+                </li>
+                <!-- {% block content %}
+                    {{ n.viewed }} = True
+                {% endblock %} -->
+            {% endif %}
         {% endfor %}
         </body>
 </html>
