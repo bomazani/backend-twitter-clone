@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import reverse
+from copy import deepcopy
 
 from twitterCloneApp.models import TwitterUser, Tweet, Notification
 from twitterCloneApp.forms import TweetForm, SignupForm, LoginForm
@@ -161,7 +162,12 @@ def add_tweet(request):
 @login_required
 def notification_view(request):
     current_user = request.user.twitteruser
-    items = Notification.objects.filter(twitter_user=current_user)
+    items = Notification.objects.filter(twitter_user=current_user).filter(viewed=False)
+    
+    for i in items:
+        i.viewed = True
+        i.save()
+
     mytweets = Tweet.objects.filter(author=current_user.id)
     numtweets = len(mytweets)
     myrequest = request
@@ -172,7 +178,9 @@ def notification_view(request):
         'notifications': items,
         'mytweets': mytweets,
         'myrequest': myrequest,
+        'items': items,
     }
+    
     return render(request, 'notification.html', context)
 
 
@@ -185,7 +193,6 @@ def profile_view(request, twitteruser_id):
     numtweets = len(mytweets)
     
     current_follows = request.user.twitteruser.follows.all()
-    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
 
     if myuser in current_follows:

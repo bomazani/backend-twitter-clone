@@ -11,9 +11,7 @@ user can follow other users *working*
 
 user can unfollow other users *working*
 
-viewing notifications makes new notifications go away ** not working **
-    - How to change view attribute from False to True? 
-    - Can I do it in my 'notification.html' template?
+viewing notifications makes new notifications go away * working *
 
 user profile has count of how many accounts that user is following ** not working on Home or Notifications pages. Currently only displays count for user on Profile page, not each specific user. **
 
@@ -23,3 +21,4 @@ user profile has count of how many accounts that user is following ** not workin
 
 ** I have created 3 html templates: all tweets, active user tweets, follower's tweets.
     - need to build those out, so they can be used to control what tweets are being displayed where.
+    - user tweets & follower tweets should appear on the homepage. All tweets should not be displayed.
