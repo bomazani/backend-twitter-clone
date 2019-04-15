@@ -19,7 +19,7 @@ from django.conf import settings
 from django.urls import include, path
 from twitterCloneApp.models import *
 from twitterCloneApp.views import home_view, login_view, signup_view, logout_view, single_tweet_view, profile_view
-from twitterCloneApp.views import add_follow, remove_follow, notification_view, add_tweet
+from twitterCloneApp.views import add_follow, remove_follow, notification_view, add_tweet, single_user_view
 
 
 admin.site.register(TwitterUser)

@@ -6,7 +6,7 @@
 </head>
 <body>
     {% include "navbar.html" with current_user=current_user %}
-    {% include "sidebar.html" with current_user=current_user %}
+    <!-- {% include "sidebar.html" with current_user=current_user %} -->
     <h1>Add a tweet, {{ user }}!</h1>
 
     <form action="/add_tweet/" method="post">

@@ -71,12 +71,33 @@ def home_view(request):
     current_user = request.user.twitteruser
     mytweets = Tweet.objects.filter(author=current_user.id)
     numtweets = len(mytweets)
+    followed_authors = TwitterUser.objects.filter(follows=True)
+    # followed_tweets = Tweet.objects.get(author=followed_authors)
+    # followed_tweets = Tweet.objects.get(author in followed_authors)
+
+    # followed_tweets = Tweet.objects.get().filter(author=followed_authors)
+    gathered_tweets = []
+    # for auth in followed_authors:
+        # gathered_tweets.append(Tweet.objects.get(author=auth))
+    # for tweet in allTweets:
+        # if (tweet.author.follows == True) or (tweet.author == current_user):
+        # if (tweet in followed_tweets) or (tweet.author == current_user):
+        # if (tweet.author == current_user):
+        #     gathered_tweets.append(tweet)
+    # for tweet in followed_tweets:
+    #     gathered_tweets.append(tweet)
+    for tweet in allTweets:
+        for auth in followed_authors:
+            if tweet.author == auth or tweet.author == current_user:
+                gathered_tweets.append(tweet)
+
 
     context = {
         'data':items,
         'current_user':request.user.twitteruser,
         'tweets':allTweets,
         'numtweets':numtweets,
+        'gathered_tweets': gathered_tweets,
     }
 
     return render(request, 'home.html', context)

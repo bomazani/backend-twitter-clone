@@ -16,13 +16,15 @@
                 {% else %}
                   <div>** number of users that {{ user }} is following: {{ numfollows }} **</div>
                 {% endif %}
+            {% endif %}
+            <!-- {% if user.is_authenticated%}
               <a href="{% url 'logout' %}">Logout</a>
             {% else %}
               <h3>Generic sidebar</h3>
               <a href="{% url 'login' %}">Login</a>
               <div></div>
               <a href="{% url 'signup' %}">Sign Up</a>
-            {% endif %}
+            {% endif %} -->
         </div>
         <br>
     </body>
