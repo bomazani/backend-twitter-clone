@@ -2,10 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <h3>All Tweets from {{ user }} and those from whom {{ user }} followith:</h3>
         <title>Tweets Bar</title>
     </head>
     <body>
+        <h2>All Tweets from {{ user }} and those from whom {{ user }} followith:</h2>
+        <h3>Followed authors:</h3>
+        <div>
+            {% for auth in followed_authors %}
+                {{ auth }}<span> </span>|<span> </span>
+            {% endfor %}
+        </div>
         <h3>Tweets</h3>
         <div>
             {% for tweet in gathered_tweets %}

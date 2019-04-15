@@ -98,6 +98,7 @@ def home_view(request):
         'tweets':allTweets,
         'numtweets':numtweets,
         'gathered_tweets': gathered_tweets,
+        'followed_authors': followed_authors,
     }
 
     return render(request, 'home.html', context)
