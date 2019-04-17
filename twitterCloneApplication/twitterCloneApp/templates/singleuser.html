@@ -8,6 +8,26 @@
     {% include "navbar.html" with current_user=current_user %}
     <!-- {% include "sidebar.html" with current_user=current_user %} -->
     <h1>Here is {{ username }}'s tweets, {{ user }}!</h1>
+    <br>
+    <div>
+        <!-- {% if user.is_authenticated %} -->
+        {% if following %}
+            <a href = "/profile/{{ current_user }}/remove_follow">
+                <button>
+                    Unfollow
+                </button>
+            </a>
+        {% endif %}
+        {% if not_following %}
+            <a href = "/profile/{{ current_user }}/add_follow">
+                <button>
+                    Follow
+                </button>
+            </a>
+        {% endif %}
+        <!-- {% endif %} -->
+    </div>
+    <br>
     <div>
         <li>
             {% for t in user_tweetz %}
@@ -15,4 +35,5 @@
             {% endfor %}
         </li>
     </div>
+    <div>current_user = {{ current_user }}</div>
 </body>

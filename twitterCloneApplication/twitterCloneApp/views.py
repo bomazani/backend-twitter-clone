@@ -78,9 +78,7 @@ def home_view(request):
     user_name = request.user.username
     # mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
-    
     current_follows = request.user.twitteruser.follows.all()
-    
     numfollows = len(current_follows)
     # followed_tweets = Tweet.objects.get().filter(author=followed_authors)
     gathered_tweets = []
@@ -95,8 +93,10 @@ def home_view(request):
     #     gathered_tweets.append(tweet)
     for tweet in allTweets:
         # for auth in followed_authors:
+        if tweet.author == current_user:
+            gathered_tweets.append(tweet)
         for auth in current_follows:
-            if tweet.author == auth or tweet.author == current_user:
+            if tweet.author == auth and tweet.author != current_user:
                 gathered_tweets.append(tweet)
     followed_tweets = []
     for tweet in allTweets:
@@ -251,7 +251,6 @@ def profile_view(request, twitteruser_id):
         'numtweets':numtweets,
         'twitteruser_id':twitteruser_id,
         'user':user,
-        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
