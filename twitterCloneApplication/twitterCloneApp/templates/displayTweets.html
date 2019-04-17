@@ -16,12 +16,20 @@
         <div>
             {% for tweet in gathered_tweets %}
                 <li>
-                    <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
+                    <div>{{ tweet.body }}</div>
                     <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>
-                    on {{ tweet.tweetTime }}
+                    <a href="/singleTweet/{{ tweet.id }}">--- {{ tweet.tweetTime }}</a>
                 </li>
                 <br>
             {% endfor %}
         </div>
+        <div>********displayTweets**********</div>
+        <div>Test: followed_authors = {{ followed_authors }}</div>
+        <div>Test: gathered_tweets = {{ gathered_tweets }}</div>
+        <div>Test: numfollows = {{ numfollows }}</div>
+        <div>Test: current_follows = {{ current_follows }}</div>
+        <div>Test: following = {{ following }}</div>
+        <div>Test: not_following = {{ not_following }}</div>
+
     </body>
 </html>

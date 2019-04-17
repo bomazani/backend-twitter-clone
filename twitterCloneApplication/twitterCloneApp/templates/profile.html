@@ -33,13 +33,27 @@
             <li>
                 {% for tweet in tweets %}
                 <li>
-                    <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
+                    <div>{{ tweet.body }}</div>
                     <a href="/profile/{{ myuser.id }}"> by {{ myuser }} </a>
+                    <a href="/singleTweet/{{ tweet.id }}">--- {{ tweet.tweetTime }}</a>
+                </li>
+                {% endfor %}
+            </li>
+        </ul>
+        <!-- <div>#####################</div>
+        <ul>
+            <li>
+                {% for tweet in gathered_tweets %}
+                <li>
+                    <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
+                    <a href="/profile/{{ tweet.author }}"> by {{ tweet.author }} </a>
                      on {{ tweet.tweetTime }}
                 </li>
                 {% endfor %}
             </li>
         </ul>
+        <div>###################</div> -->
+    
         <br>
         <div>
             <!-- <div>current_user = {{ current_user }}</div>

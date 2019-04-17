@@ -71,10 +71,17 @@ def home_view(request):
     current_user = request.user.twitteruser
     mytweets = Tweet.objects.filter(author=current_user.id)
     numtweets = len(mytweets)
-    followed_authors = TwitterUser.objects.filter(follows=True)
+    # followed_authors = TwitterUser.objects.filter(follows=True)
     # followed_tweets = Tweet.objects.get(author=followed_authors)
     # followed_tweets = Tweet.objects.get(author in followed_authors)
-
+    user = request.user
+    user_name = request.user.username
+    # mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
+    
+    current_follows = request.user.twitteruser.follows.all()
+    
+    numfollows = len(current_follows)
     # followed_tweets = Tweet.objects.get().filter(author=followed_authors)
     gathered_tweets = []
     # for auth in followed_authors:
@@ -87,18 +94,25 @@ def home_view(request):
     # for tweet in followed_tweets:
     #     gathered_tweets.append(tweet)
     for tweet in allTweets:
-        for auth in followed_authors:
+        # for auth in followed_authors:
+        for auth in current_follows:
             if tweet.author == auth or tweet.author == current_user:
                 gathered_tweets.append(tweet)
-
-
+    followed_tweets = []
+    for tweet in allTweets:
+        for auth in current_follows:
+            if tweet.author == auth :
+                followed_tweets.append(tweet)
     context = {
         'data':items,
         'current_user':request.user.twitteruser,
         'tweets':allTweets,
         'numtweets':numtweets,
+        'numfollows': numfollows,
         'gathered_tweets': gathered_tweets,
-        'followed_authors': followed_authors,
+        'followed_authors': current_follows,
+        'followed_tweets': followed_tweets,
+        'current_follows': current_follows,
     }
 
     return render(request, 'home.html', context)
@@ -300,7 +314,7 @@ def add_follow(request, username):
         'viewed_user': viewed_user,
         'viewed_user_id': viewed_user_id,
         'twitteruserid': twitteruserid,
-        'numfollows': numfollows,
+        # 'numfollows': numfollows,
     }
 
     return render(request, 'profile.html', context)
