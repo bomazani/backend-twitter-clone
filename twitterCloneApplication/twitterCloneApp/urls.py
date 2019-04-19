@@ -20,7 +20,7 @@ from django.urls import include, path
 from twitterCloneApp.models import *
 from twitterCloneApp.views import home_view, login_view, signup_view, logout_view, single_tweet_view, profile_view
 from twitterCloneApp.views import add_follow, remove_follow, notification_view, add_tweet, single_user_view
-
+from twitterCloneApp.views import follow, unfollow
 
 admin.site.register(TwitterUser)
 admin.site.register(Tweet)
@@ -39,6 +39,8 @@ urlpatterns = [
     path('user/<str:username>/', views.single_user_view, name='user'),
     path('profile/<str:username>/add_follow/', views.add_follow, name='add_follow'),
     path('profile/<str:username>/remove_follow/', views.remove_follow, name='remove_follow'),
+    path('user/<str:username>/follow/', views.follow, name='follow'),
+    path('user/<str:username>/unfollow/', views.unfollow, name='unfollow'),
 ]
 
 if settings.DEBUG:

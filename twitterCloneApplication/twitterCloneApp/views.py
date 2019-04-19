@@ -389,3 +389,119 @@ def remove_follow(request, username):
     }
 
     return render(request, 'profile.html', context)
+
+
+@login_required
+def follow(request, username):
+    user = request.user
+    username = username
+    viewed_user = TwitterUser.objects.filter(username=username).first()
+    html = 'singleuser.html'
+    myuser = TwitterUser.objects.get(username=username)
+    viewed_user_id = viewed_user.id
+    twitteruserid = myuser.id
+
+    add_follower(request, viewed_user)
+
+    user = request.user
+    user_name = request.user.username
+    myuser = TwitterUser.objects.get(id=viewed_user_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
+    current_follows = request.user.twitteruser.follows.all()
+    # current_follow = request.user.twitteruser.follow.all()
+    numfollows = len(current_follows)
+    twitteruser_id = 'xyz'
+
+    if myuser in current_follows:
+        following = True
+        not_following = False
+
+    else:
+        following = False
+        not_following = True
+
+    if (str(user_name) == str(myuser)):
+        match = True
+    else:
+        match = False
+
+    context = {
+        'current_user':myuser,
+        'tweets':mytweets,
+        'myuser':myuser,
+        'numtweets':numtweets,
+        'twitteruser_id':twitteruser_id,
+        'user':user,
+        # 'current_follow': current_follow,
+        'current_follows': current_follows,
+        'following': following,
+        'not_following': not_following,
+        'match': match,
+        'numfollows': numfollows,
+        'username': username,
+        'viewed_user': viewed_user,
+        'viewed_user_id': viewed_user_id,
+        'twitteruserid': twitteruserid,
+        # 'numfollows': numfollows,
+    }
+
+    return render(request, 'singleuser.html', context)
+
+
+@login_required
+def unfollow(request, username):
+    user = request.user
+    username = username
+    viewed_user = TwitterUser.objects.filter(username=username).first()
+    html = 'singleuser.html'
+    myuser = TwitterUser.objects.get(username=username)
+    viewed_user_id = viewed_user.id
+    twitteruserid = myuser.id
+
+    remove_follower(request, viewed_user)
+
+    user = request.user
+    user_name = request.user.username
+    myuser = TwitterUser.objects.get(id=viewed_user_id)
+    mytweets = Tweet.objects.filter(author=myuser)
+    numtweets = len(mytweets)
+    current_follows = request.user.twitteruser.follows.all()
+    # current_follow = request.user.twitteruser.follow.all()
+    numfollows = len(current_follows)
+    twitteruser_id = 'xyz'
+
+    if myuser in current_follows:
+        following = True
+        not_following = False
+
+    else:
+        following = False
+        not_following = True
+
+    if (str(user_name) == str(myuser)):
+        match = True
+    else:
+        match = False
+
+    context = {
+        'current_user': myuser,
+        'tweets': mytweets,
+        'myuser': myuser,
+        'numtweets': numtweets,
+        'twitteruser_id': twitteruser_id,
+        'user': user,
+        # 'current_follow': current_follow,
+        'current_follows': current_follows,
+        'following': following,
+        'not_following': not_following,
+        'match': match,
+        'numfollows': numfollows,
+        'username': username,
+        'viewed_user': viewed_user,
+        'viewed_user_id': viewed_user_id,
+        'twitteruserid': twitteruserid,
+        'numfollows': numfollows,
+    }
+
+    return render(request, 'singleuser.html', context)
