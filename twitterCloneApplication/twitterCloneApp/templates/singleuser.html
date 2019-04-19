@@ -10,22 +10,23 @@
     <h1>Here is {{ username }}'s tweets, {{ user }}!</h1>
     <br>
     <div>
-        <!-- {% if user.is_authenticated %} -->
-        {% if following %}
-            <a href = "/profile/{{ current_user }}/remove_follow">
-                <button>
-                    Unfollow
-                </button>
-            </a>
+        <div>Follow/Unfollow button goes here.</div>
+        {% if user.is_authenticated %}
+            {% if following %}
+                <a href = "/profile/{{ current_user }}/remove_follow">
+                    <button>
+                        Unfollow
+                    </button>
+                </a>
+            {% endif %}
+            {% if not_following %}
+                <a href = "/profile/{{ current_user }}/add_follow">
+                    <button>
+                        Follow
+                    </button>
+                </a>
+            {% endif %}
         {% endif %}
-        {% if not_following %}
-            <a href = "/profile/{{ current_user }}/add_follow">
-                <button>
-                    Follow
-                </button>
-            </a>
-        {% endif %}
-        <!-- {% endif %} -->
     </div>
     <br>
     <div>
@@ -36,4 +37,11 @@
         </li>
     </div>
     <div>current_user = {{ current_user }}</div>
+    <div>myuser = {{ myuser }}</div>
+    <div>user = {{ user }}</div>
+    <div>username = {{ username }}</div>
+    <div>following = {{ following }}</div>
+    <div>not_following = {{ not_following }}</div>
+    <div>user_tweetz = {{ user_tweetz }}</div>
+
 </body>
