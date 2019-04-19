@@ -13,16 +13,14 @@
         <div>Follow/Unfollow button goes here.</div>
         {% if user.is_authenticated %}
             {% if following %}
-                <a href = "/profile/{{ current_user }}/remove_follow">
-                <!-- <a href = "/profile/{{ username }}/remove_follow"> -->
+                <a href = "/user/{{ username }}/unfollow">
                     <button>
                         Unfollow
                     </button>
                 </a>
             {% endif %}
             {% if not_following %}
-                <a href = "/profile/{{ current_user }}/remove_follow">
-                <!-- <a href = "/profile/{{ username }}/remove_follow"> -->
+                <a href = "/user/{{ username }}/follow">
                     <button>
                         Follow
                     </button>

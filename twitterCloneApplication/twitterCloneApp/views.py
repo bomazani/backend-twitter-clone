@@ -293,9 +293,8 @@ def add_follow(request, username):
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
-    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
-    twitteruser_id = 'xyz'
+    # twitteruser_id = 'xyz'
 
     if myuser in current_follows:
         following = True
@@ -315,9 +314,8 @@ def add_follow(request, username):
         'tweets':mytweets,
         'myuser':myuser,
         'numtweets':numtweets,
-        'twitteruser_id':twitteruser_id,
+        # 'twitteruser_id':twitteruser_id,
         'user':user,
-        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
@@ -327,7 +325,6 @@ def add_follow(request, username):
         'viewed_user': viewed_user,
         'viewed_user_id': viewed_user_id,
         'twitteruserid': twitteruserid,
-        # 'numfollows': numfollows,
     }
 
     return render(request, 'profile.html', context)
@@ -351,9 +348,8 @@ def remove_follow(request, username):
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
-    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
-    twitteruser_id = 'xyz'
+    # twitteruser_id = 'xyz'
 
     if myuser in current_follows:
         following = True
@@ -373,9 +369,8 @@ def remove_follow(request, username):
         'tweets': mytweets,
         'myuser': myuser,
         'numtweets': numtweets,
-        'twitteruser_id': twitteruser_id,
+        # 'twitteruser_id': twitteruser_id,
         'user': user,
-        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
@@ -409,9 +404,8 @@ def follow(request, username):
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
-    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
-    twitteruser_id = 'xyz'
+    # twitteruser_id = 'xyz'
 
     if myuser in current_follows:
         following = True
@@ -431,9 +425,8 @@ def follow(request, username):
         'tweets':mytweets,
         'myuser':myuser,
         'numtweets':numtweets,
-        'twitteruser_id':twitteruser_id,
+        # 'twitteruser_id':twitteruser_id,
         'user':user,
-        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
@@ -443,7 +436,6 @@ def follow(request, username):
         'viewed_user': viewed_user,
         'viewed_user_id': viewed_user_id,
         'twitteruserid': twitteruserid,
-        # 'numfollows': numfollows,
     }
 
     return render(request, 'singleuser.html', context)
@@ -467,9 +459,8 @@ def unfollow(request, username):
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
-    # current_follow = request.user.twitteruser.follow.all()
     numfollows = len(current_follows)
-    twitteruser_id = 'xyz'
+    # twitteruser_id = 'xyz'
 
     if myuser in current_follows:
         following = True
@@ -489,9 +480,8 @@ def unfollow(request, username):
         'tweets': mytweets,
         'myuser': myuser,
         'numtweets': numtweets,
-        'twitteruser_id': twitteruser_id,
+        # 'twitteruser_id': twitteruser_id,
         'user': user,
-        # 'current_follow': current_follow,
         'current_follows': current_follows,
         'following': following,
         'not_following': not_following,
