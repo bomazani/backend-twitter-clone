@@ -236,8 +236,9 @@ def profile_view(request, twitteruser_id):
     myuser = TwitterUser.objects.get(id=twitteruser_id)
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
-
+    selected_followed = len(myuser.follows.filter())
     current_follows = request.user.twitteruser.follows.all()
+
     numfollows = len(current_follows)
 
     if myuser in current_follows:
@@ -264,7 +265,8 @@ def profile_view(request, twitteruser_id):
         'following': following,
         'not_following': not_following,
         'match': match,
-        'numfollows': numfollows
+        'numfollows': numfollows,
+        'selected_followed': selected_followed,
     }
    
     return render(request, 'profile.html', data)
