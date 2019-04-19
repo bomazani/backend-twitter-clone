@@ -4,7 +4,7 @@ Twitter clone created with Django.
 - The following items must be met to meet the assignment requirements.
 
 1) Users can access specific tweets by URL without being logged in:
-    /singletweet/<tweet_id>
+    /singleTweet/<tweet_id>
 
 2) Users can access specific users by URL without being logged in:
     /user/<username>
