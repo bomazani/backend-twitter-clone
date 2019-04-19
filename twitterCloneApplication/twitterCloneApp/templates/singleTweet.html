@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<h2 lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Tweet</title>
 </head>
 <body>
     {% include "navbar.html" with current_user=current_user %}
-    <!-- {% include "sidebar.html" with current_user=current_user %} -->
     <h1>Here is an isolated view of that tweet, {{ user }}!</h1>
     <div>
         <li>
             {% for tweet in singleTweet %}
-            <h2>{{ tweet.body }} by <a href="/profile/{{ tweet.author_id }}">{{ tweet.author }}</a></h2>
+            <h2>{{ tweet.body }}</h2>
+            <h3>by <a href="/profile/{{ tweet.author_id }}">{{ tweet.author }}</a> --- {{ tweet.tweetTime }}</h3>
             {% endfor %}
         </li>
     </div>

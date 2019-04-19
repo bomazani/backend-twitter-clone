@@ -11,7 +11,6 @@ class TwitterUser(models.Model):
     )
     username = models.CharField(max_length=124)
     follows = models.ManyToManyField("self", related_name='following', symmetrical=False, blank=True)
-    # follow = models.ManyToManyField("TwitterUser", related_name="followed_by", symmetrical=False, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -40,7 +39,6 @@ class Tweet(models.Model):
 
     def create_notifications(self):
         text = self.body
-        # foundmatches = []
         matches = re.findall(r'@([a-zA-Z0-9_]+)', text)
         for match in matches:
             maybeuser = TwitterUser.objects.filter(user__username=match).first()

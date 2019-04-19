@@ -6,7 +6,6 @@
 </head>
 <body>
     {% include "navbar.html" with current_user=current_user %}
-    <!-- {% include "sidebar.html" with current_user=current_user %} -->
     <h1>Here is {{ username }}'s tweets, {{ user }}!</h1>
     <br>
     <div>
@@ -30,21 +29,13 @@
     </div>
     <br>
     <div>
-        <li>
             {% for tweet in user_tweetz %}
-            <li>{{ tweet.body }} by <a href="/profile/{{ tweet.author_id }}">{{ tweet.author }}</a></li>
+            <li>
+                    <div>{{ tweet.body }}</div>
+                    <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>
+                    <a href="/singleTweet/{{ tweet.id }}">--- {{ tweet.tweetTime }}</a>
+            </li>
+            <br>
             {% endfor %}
-        </li>
     </div>
-    <div>current_user = {{ current_user }}</div>
-    <div>myuser = {{ myuser }}</div>
-    <div>user = {{ user }}</div>
-    <div>viewed_user = {{ viewed_user }}</div>
-    <div>username = {{ username }}</div>
-    <div>following = {{ following }}</div>
-    <div>not_following = {{ not_following }}</div>
-    <div>user_tweetz = {{ user_tweetz }}</div>
-    <div>mytweets = {{ mytweets }}</div>
-    <div>tweets = {{ tweets }}</div>
-
 </body>

@@ -28,7 +28,6 @@
           {% endif %}
         {% endif %}
         <br>
-
         <ul>
             <li>
                 {% for tweet in tweets %}
@@ -39,37 +38,8 @@
                 </li>
                 {% endfor %}
             </li>
-        </ul>
-        <!-- <div>#####################</div>
-        <ul>
-            <li>
-                {% for tweet in gathered_tweets %}
-                <li>
-                    <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
-                    <a href="/profile/{{ tweet.author }}"> by {{ tweet.author }} </a>
-                     on {{ tweet.tweetTime }}
-                </li>
-                {% endfor %}
-            </li>
-        </ul>
-        <div>###################</div> -->
-    
+        </ul>    
         <br>
-        <div>
-            <!-- <div>current_user = {{ current_user }}</div>
-            <div>tweets = {{ tweets }}</div>
-            <div>myuser = {{ myuser }}</div>
-            <div>numtweets = {{ numtweets }}</div>
-            <div>user = {{ user }}</div> -->
-                <!-- <div>current_follow = {{ current_follow }}</div> -->
-            <!-- <div>current_follows = {{ current_follows }}</div>
-            <div>following = {{ following }}</div>
-            <div>not_following = {{ not_following }}</div>
-            <div>match = {{ match }}</div>
-            <div>viewed_user_id = {{ viewed_user_id }}</div>
-            <div>twitteruserid = {{ twitteruserid }}</div> -->
-
-        </div>
         <hr>
     </body>
 </html>
