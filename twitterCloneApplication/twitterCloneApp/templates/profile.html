@@ -8,7 +8,7 @@
         {% include "navbar.html" with current_user=current_user %}
         {% include "sidebar.html" with current_user=current_user %}
         <div>
-            <h1>{{ current_user }}'s Tweets</h1>
+            <h1>{{ current_user }}'s Profile Page & List of Tweets</h1>
         </div>
         <br>
         {% if user.is_authenticated %}

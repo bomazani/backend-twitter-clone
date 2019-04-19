@@ -120,6 +120,7 @@ def home_view(request):
 
 def single_user_view(request, username):
     username=username
+    user = request.user
     users = TwitterUser.objects.all()
     tweets = Tweet.objects.all()
     selecteduser = users.filter(user__username=username)
@@ -127,27 +128,44 @@ def single_user_view(request, username):
     # user_tweets = tweets.filter(author=selecteduser)
     current_user = request.user
     myuser = TwitterUser.objects.get(username=username)
-    current_follows = request.user.twitteruser.follows.all()
-    if myuser in current_follows:
-        following = True
-        not_following = False
+    if user.is_authenticated:
+        current_follows = request.user.twitteruser.follows.all()
+        if myuser in current_follows:
+            following = True
+            not_following = False
+        else:
+            following = False
+            not_following = True
+
+        context = {
+            'selecteduser':selecteduser,
+            'tweets':tweets,
+            'users':users,
+            'username':username,
+            # 'myuser': myuser,
+            'current_user':current_user,
+            # 'current_follows':current_follows,
+            'user_tweetz':user_tweetz,
+            'following': following,
+            'not_following': not_following,
+        }
+
+        return render(request, 'singleuser.html', context)
+
     else:
-        following = False
-        not_following = True
+        context = {
+            'selecteduser':selecteduser,
+            'tweets':tweets,
+            'users':users,
+            'username':username,
+            # 'myuser': myuser,
+            'current_user':current_user,
+            # 'current_follows':current_follows,
+            'user_tweetz':user_tweetz,
+            # 'following': following,
+            # 'not_following': not_following,
 
-    context = {
-        'selecteduser':selecteduser,
-        'tweets':tweets,
-        'users':users,
-        'username':username,
-        # 'myuser': myuser,
-        'current_user':current_user,
-        # 'current_follows':current_follows,
-        'user_tweetz':user_tweetz,
-        'following': following,
-        'not_following': not_following,
-
-    }
+        }
 
     return render(request, 'singleuser.html', context)
 
@@ -241,7 +259,7 @@ def profile_view(request, twitteruser_id):
     myuser = TwitterUser.objects.get(id=twitteruser_id)
     mytweets = Tweet.objects.filter(author=myuser)
     numtweets = len(mytweets)
-    
+
     current_follows = request.user.twitteruser.follows.all()
     numfollows = len(current_follows)
 
