@@ -391,6 +391,7 @@ def follow(request, username):
     user = request.user
     username = username
     viewed_user = TwitterUser.objects.filter(username=username).first()
+    viewed_username = viewed_user.username
     html = 'singleuser.html'
     myuser = TwitterUser.objects.get(username=username)
     viewed_user_id = viewed_user.id
@@ -401,7 +402,9 @@ def follow(request, username):
     user = request.user
     user_name = request.user.username
     myuser = TwitterUser.objects.get(id=viewed_user_id)
+    # viewed_user = TwitterUser.objects.filter(username=username).first()
     mytweets = Tweet.objects.filter(author=myuser)
+    # tweets = Tweet.objects.filter(author=viewed_username)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
     numfollows = len(current_follows)
@@ -422,7 +425,8 @@ def follow(request, username):
 
     context = {
         'current_user':myuser,
-        'tweets':mytweets,
+        'mytweets':mytweets,
+        # 'tweets': tweets,
         'myuser':myuser,
         'numtweets':numtweets,
         # 'twitteruser_id':twitteruser_id,
@@ -457,6 +461,7 @@ def unfollow(request, username):
     user_name = request.user.username
     myuser = TwitterUser.objects.get(id=viewed_user_id)
     mytweets = Tweet.objects.filter(author=myuser)
+    # tweets = Tweet.objects.filter(author=username)
     numtweets = len(mytweets)
     current_follows = request.user.twitteruser.follows.all()
     numfollows = len(current_follows)
@@ -477,7 +482,8 @@ def unfollow(request, username):
 
     context = {
         'current_user': myuser,
-        'tweets': mytweets,
+        'mytweets': mytweets,
+        # 'tweets': tweets,
         'myuser': myuser,
         'numtweets': numtweets,
         # 'twitteruser_id': twitteruser_id,
