@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TwitterClone</title>
+</head>
+<body>
+    {% include "navbar.html" with current_user=current_user %}
+    <h3>{{ user }}'s Homepage Content</h3>
+    <h1>
+        What's happening, {{ user }}?
+    </h1>
+    <div>_______________________________________________________________</div> 
+    <!-- {% include "sidebar.html" with current_user=current_user %} -->
+    {% include "displayTweets.html" with current_user=current_user %}
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TwitterClone</title>
+    </head>
+    <body>
+        {% include "navbar.html" with current_user=current_user %}
+        {% include "sidebar.html" with current_user=current_user %}
+        <div>
+            <h1>{{ current_user }}'s Profile Page & List of Tweets</h1>
+        </div>
+        <br>
+        {% if user.is_authenticated %}
+          {% if following %}
+            <a href = "/profile/{{ current_user }}/remove_follow">
+                <button>
+                    Unfollow
+                </button>
+            </a>
+          {% endif %}
+          {% if not_following %}
+            <a href = "/profile/{{ current_user }}/add_follow">
+                <button>
+                    Follow
+                </button>
+            </a>
+          {% endif %}
+        {% endif %}
+        <br>
+        <ul>
+            <li>
+                {% for tweet in tweets %}
+                <li>
+                    <div>{{ tweet.body }}</div>
+                    <a href="/profile/{{ myuser.id }}"> by {{ myuser }} </a>
+                    <a href="/singleTweet/{{ tweet.id }}">--- {{ tweet.tweetTime }}</a>
+                </li>
+                {% endfor %}
+            </li>
+        </ul>    
+        <br>
+        <hr>
+    </body>
+</html>

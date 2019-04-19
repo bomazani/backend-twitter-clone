@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <h3>Active User's Tweets</h3>
+        <title>Tweets Bar</title>
+    </head>
+    <body>
+        <h3>Tweets</h3>
+        <div>
+            {% for tweet in my_tweets %}
+                <li>
+                    <a href="/singleTweet/{{ tweet.id }}">{{ tweet.body }}</a>
+                    <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>
+                    on {{ tweet.tweetTime }}
+                </li>
+                <br>
+            {% endfor %}
+        </div>
+    </body>
+</html>

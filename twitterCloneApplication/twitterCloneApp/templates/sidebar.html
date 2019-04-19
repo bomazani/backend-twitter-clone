@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Side Bar</title>
+    </head>
+    <body>
+        <div>
+            {% if user.is_authenticated%}
+              <h3>{{ current_user }}'s sidebar</h3>
+              <div>** {{ current_user }} **</div>
+              <div>** @{{ current_user }} **</div>
+                {% if match %}
+                  <div>** number of your tweets: {{ numtweets }} **</div>
+                  <div>** number of users that you are following: {{ numfollows }} **</div>
+                  {% else %}
+                  <div>** number of {{ current_user }}'s tweets: {{ numtweets }} **</div>
+                  <div>** number of users that {{ current_user }} is following: {{ selected_followed }} **</div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tweet</title>
+</head>
+<body>
+    {% include "navbar.html" with current_user=current_user %}
+    <h1>Here is {{ username }}'s tweets, {{ user }}!</h1>
+    <br>
+    <div>
+        <div>Follow/Unfollow button goes here.</div>
+        {% if user.is_authenticated %}
+            {% if following %}
+                <a href = "/user/{{ username }}/unfollow">
+                    <button>
+                        Unfollow
+                    </button>
+                </a>
+            {% endif %}
+            {% if not_following %}
+                <a href = "/user/{{ username }}/follow">
+                    <button>
+                        Follow
+                    </button>
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <br>
+    <div>
+            {% for tweet in user_tweetz %}
+            <li>
+                    <div>{{ tweet.body }}</div>
+                    <a href="/profile/{{ tweet.author.id }}"> by {{ tweet.author }}</a>
+                    <a href="/singleTweet/{{ tweet.id }}">--- {{ tweet.tweetTime }}</a>
+            </li>
+            <br>
+            {% endfor %}
+    </div>
+</body>
