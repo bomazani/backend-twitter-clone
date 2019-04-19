@@ -31,7 +31,7 @@
     <br>
     <div>
         <li>
-            {% for tweet in mytweets %}
+            {% for tweet in user_tweetz %}
             <li>{{ tweet.body }} by <a href="/profile/{{ tweet.author_id }}">{{ tweet.author }}</a></li>
             {% endfor %}
         </li>

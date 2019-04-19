@@ -425,7 +425,7 @@ def follow(request, username):
 
     context = {
         'current_user':myuser,
-        'mytweets':mytweets,
+        'user_tweetz':mytweets,
         # 'tweets': tweets,
         'myuser':myuser,
         'numtweets':numtweets,
@@ -482,7 +482,7 @@ def unfollow(request, username):
 
     context = {
         'current_user': myuser,
-        'mytweets': mytweets,
+        'user_tweetz': mytweets,
         # 'tweets': tweets,
         'myuser': myuser,
         'numtweets': numtweets,
