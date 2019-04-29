@@ -111,8 +111,9 @@ def single_user_view(request, username):
     selecteduser = users.filter(user__username=username)
     user_tweetz = tweets.filter(author__user__username=username)
     current_user = request.user
-    myuser = TwitterUser.objects.get(username=username)
-    if user.is_authenticated:
+    # myuser = TwitterUser.objects.get(username=username)
+    if request.user.is_authenticated:
+        myuser = request.user.twitteruser
         current_follows = request.user.twitteruser.follows.all()
         if myuser in current_follows:
             following = True
@@ -276,9 +277,10 @@ def profile_view(request, twitteruser_id):
 def add_follow(request, username):
     user = request.user
     username = username
-    viewed_user = TwitterUser.objects.filter(username=username).first()
+    viewed_user = TwitterUser.objects.filter(user__username=username).first()
     html = 'profile.html'
-    myuser = TwitterUser.objects.get(username=username)
+    # myuser = TwitterUser.objects.get(username=username)
+    myuser = request.user.twitteruser
     viewed_user_id = viewed_user.id
     twitteruserid = myuser.id
 
@@ -329,9 +331,10 @@ def add_follow(request, username):
 def remove_follow(request, username):
     user = request.user
     username = username
-    viewed_user = TwitterUser.objects.filter(username=username).first()
+    viewed_user = TwitterUser.objects.filter(user__username=username).first()
     html = 'profile.html'
-    myuser = TwitterUser.objects.get(username=username)
+    # myuser = TwitterUser.objects.get(username=username)
+    myuser = request.user.twitteruser
     viewed_user_id = viewed_user.id
     twitteruserid = myuser.id
 
@@ -383,10 +386,11 @@ def remove_follow(request, username):
 def follow(request, username):
     user = request.user
     username = username
-    viewed_user = TwitterUser.objects.filter(username=username).first()
+    viewed_user = TwitterUser.objects.filter(user__username=username).first()
     viewed_username = viewed_user.username
     html = 'singleuser.html'
-    myuser = TwitterUser.objects.get(username=username)
+    # myuser = TwitterUser.objects.get(username=username)
+    myuser = request.user.twitteruser
     viewed_user_id = viewed_user.id
     twitteruserid = myuser.id
 
@@ -437,9 +441,10 @@ def follow(request, username):
 def unfollow(request, username):
     user = request.user
     username = username
-    viewed_user = TwitterUser.objects.filter(username=username).first()
+    viewed_user = TwitterUser.objects.filter(user__username=username).first()
     html = 'singleuser.html'
-    myuser = TwitterUser.objects.get(username=username)
+    # myuser = TwitterUser.objects.get(username=username)
+    myuser = request.user.twitteruser
     viewed_user_id = viewed_user.id
     twitteruserid = myuser.id
 
